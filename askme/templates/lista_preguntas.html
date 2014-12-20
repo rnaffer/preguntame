@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Preguntame!</title>
+</head>
+<body>
+	{% if lista_de_preguntas %}
+		<ul>
+			{% for pregunta in lista_de_preguntas %}
+				<li><a href="{% url 'preguntas:detalle' pregunta.id %}"> {{ pregunta.asunto }}</a></li>
+			{% endfor %}
+		</ul>
+	{% else %}
+		<p>No hay preguntas disponibles.</p>
+	{% endif %}
+</body>
+</html>

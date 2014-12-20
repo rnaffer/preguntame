@@ -1,0 +1,8 @@
+<h1>{{ pregunta.asunto }}</h1>
+{% if error_message %}
+	<p><strong>{{ error_message }}</strong></p>
+{% endif %}
+
+{% for respuesta in pregunta.respuesta_set.all %}
+	<p>{{ respuesta.contenido }}</p><br />
+{% endfor %}
