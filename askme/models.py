@@ -26,7 +26,7 @@ class Respuesta(models.Model):
 	contenido = models.TextField()
 	respuesta_fecha_pub = models.DateTimeField(auto_now_add=True)
 	usuario = models.ForeignKey(User)
-	votos_respuesta = models.IntegerField(default=0)
+	votos = models.IntegerField(default=0)
 
 	def __str__(self):
 		return self.contenido

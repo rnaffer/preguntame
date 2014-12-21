@@ -3,8 +3,9 @@
 	<p><strong>{{ error_message }}</strong></p>
 {% endif %}
 
-{% for respuesta in pregunta.respuesta_set.all %}
+{% for respuesta in pregunta.respuesta_set.all|dictsortreversed:'votos' %}
 	<p>{{ respuesta.contenido|linebreaks }}</p><br />
+	<p>Votos: {{ respuesta.votos }} - <a href="{% url 'preguntas:plus' respuesta.id %}">Mas</a> - <a href="{% url 'preguntas:minus' respuesta.id %}">Menos</a></p><br />
 {% endfor %}
 
 <form action="" method="post">

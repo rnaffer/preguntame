@@ -56,3 +56,15 @@ class PreguntameFormView(FormView):
 		pregunta.usuario = self.request.user
 		pregunta.save()
 		return super(PreguntameFormView, self).form_valid(form)
+
+def plus(request, respuesta_id):
+	respuesta = get_object_or_404(Respuesta, pk=respuesta_id)
+	respuesta.votos += 1
+	respuesta.save()
+	return redirect('/preguntas/{0}' .format(respuesta.pregunta.id))
+
+def minus(request, respuesta_id):
+	respuesta = get_object_or_404(Respuesta, pk=respuesta_id)
+	respuesta.votos -= 1
+	respuesta.save()
+	return redirect('/preguntas/{0}' .format(respuesta.pregunta.id))
