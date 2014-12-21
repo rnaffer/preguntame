@@ -5,6 +5,7 @@ from askme import views
 urlpatterns = patterns('',
     url(r'^$', views.PreguntaListView.as_view(), name='preguntas'),
 	url(r'^(?P<pk>\d+)/$', views.PreguntaDetailView.as_view(), name='detalle'),
+	url(r'^preguntame/$', views.PreguntameFormView.as_view(), name='preguntame'),
 
     # url(r'^blog/', include('blog.urls')),
     

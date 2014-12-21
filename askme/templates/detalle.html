@@ -4,5 +4,11 @@
 {% endif %}
 
 {% for respuesta in pregunta.respuesta_set.all %}
-	<p>{{ respuesta.contenido }}</p><br />
+	<p>{{ respuesta.contenido|linebreaks }}</p><br />
 {% endfor %}
+
+<form action="" method="post">
+	{% csrf_token %}
+	{{ form.as_p }}
+	<input type="submit" value="Enviar Respuesta">
+</form>

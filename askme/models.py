@@ -13,7 +13,7 @@ class Pregunta(models.Model):
 	asunto = models.CharField(max_length=150)
 	descripcion = models.TextField()
 	fecha_pub = models.DateTimeField(auto_now_add=True)
-	votes = models.IntegerField(default=0)
+	popularidad = models.IntegerField(default=0)
 	respuestas = models.IntegerField(default=0)
 	categoria = models.ForeignKey(Categoria)
 	usuario = models.ForeignKey(User)

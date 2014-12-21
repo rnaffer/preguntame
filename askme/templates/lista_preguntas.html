@@ -7,8 +7,8 @@
 <body>
 	{% if lista_de_preguntas %}
 		<ul>
-			{% for pregunta in lista_de_preguntas %}
-				<li><a href="{% url 'preguntas:detalle' pregunta.id %}"> {{ pregunta.asunto }}</a></li>
+			{% for pregunta in lista_de_preguntas.popular %}
+				<li><a href="{% url 'preguntas:detalle' pregunta.id %}"> {{ pregunta.asunto }}</a> - popularidad: {{ pregunta.popularidad }} - respuestas: {{ pregunta.respuestas }}</li>
 			{% endfor %}
 		</ul>
 	{% else %}
