@@ -24,6 +24,8 @@ class PreguntaTest(TestCase):
 		self.assertEqual(test_pregunta.categoria, self.categoria)
 
 	def test_vistas(self):
+
+		# verificar que la respuesta sea la correcta
 		res = self.client.get(reverse('preguntas:preguntas'))
 		self.assertEqual(res.status_code, 200)
 
@@ -32,6 +34,7 @@ class PreguntaTest(TestCase):
 		self.assertEqual(res.status_code, 200)
 
 	def test_add(self):
+		# verificar que el usuario pueda crear una pregunta correctamente
 		self.assertEqual(Pregunta.objects.count(), 0)
 		data = {}
 		data['asunto'] = 'asunto prueba'
@@ -45,3 +48,22 @@ class PreguntaTest(TestCase):
 		self.assertEqual(pregunta.asunto, data['asunto'])
 		self.assertEqual(pregunta.descripcion, data['descripcion'])
 		self.assertEqual(pregunta.categoria, self.categoria)
+
+		# verificar que se pueda crear una respuesta 
+		# emular otro usuario que va a responder
+		self.assertEqual(pregunta.respuesta_set.count(), 0)
+		self.usuario = User.objects.create_user(username='naffer2', password='wizard97')
+		self.client.login(username='naffer2', password='wizard97')
+		data2 = {}
+		data2['contenido'] = 'contenido de prueba'
+		res2 = self.client.post(
+			reverse('preguntas:detalle', kwargs={'pk': 1}), data2)
+		self.assertEqual(res2.status_code, 302)
+		self.assertEqual(Respuesta.objects.count(), 1)
+		self.assertEqual(pregunta.respuesta_set.count(), 1)
+		respuesta = pregunta.respuesta_set.all()[0]
+		self.assertEqual(respuesta.contenido, data2['contenido'])
+		self.assertEqual(respuesta.usuario, self.usuario)
+
+		# verificar las votaciones en la respuesta
+		
