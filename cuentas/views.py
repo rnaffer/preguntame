@@ -7,6 +7,7 @@ AuthenticationForm, SetPasswordForm, PasswordChangeForm)
 from django.contrib import messages
 
 from .forms import UserCreateForm
+from .models import DatosUsuario
 
 class LoginFormView(FormView):
 	template_name = "log_in.html"
@@ -40,6 +41,8 @@ class AccountRegistrationView(CreateView):
     		username=saved_user.username,
     		password=form.cleaned_data['password1'])
     	login(self.request, user)
+    	datos = DatosUsuario.objects.create(usuario=user, reputacion=0)
+    	datos.save()
     	return HttpResponseRedirect(self.get_success_url())
 
 def logout_view(request):

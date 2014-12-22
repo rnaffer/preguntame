@@ -3,9 +3,11 @@ from django.template import Context, RequestContext
 from django.views.generic import ListView, DetailView, FormView
 from django.views.generic.edit import FormMixin
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User
 from datetime import datetime
 
 from askme.models import Pregunta, Respuesta, Categoria
+from cuentas.models import DatosUsuario
 from askme.forms import PreguntarForm, RespuestaForm
 # Create your views here.
 
@@ -62,6 +64,10 @@ class PreguntameFormView(FormView):
 def plus(request, respuesta_id):
 	respuesta = get_object_or_404(Respuesta, pk=respuesta_id)
 	respuesta.votos += 1
+	usuario = get_object_or_404(User, username=respuesta.usuario.username)
+	datos = DatosUsuario.objects.get(usuario=usuario)
+	datos.reputacion += 7
+	datos.save()
 	respuesta.save()
 	return redirect('/preguntas/{0}' .format(respuesta.pregunta.id))
 

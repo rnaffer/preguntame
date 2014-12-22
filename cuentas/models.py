@@ -6,4 +6,4 @@ class DatosUsuario(models.Model):
 	reputacion = models.IntegerField(default=0)
 
 	def __str__(self):
-		return self.reputacion
+		return '{0}' .format(self.reputacion)

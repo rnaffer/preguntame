@@ -1,11 +1,13 @@
 <h1>{{ pregunta.asunto }}</h1>
+<h3>{{ pregunta.descripcion }}</h3>
 {% if error_message %}
 	<p><strong>{{ error_message }}</strong></p>
 {% endif %}
 
 {% for respuesta in pregunta.respuesta_set.all|dictsortreversed:'votos' %}
 	<p>{{ respuesta.contenido|linebreaks }}</p><br />
-	<p>Votos: {{ respuesta.votos }} - <a href="{% url 'preguntas:plus' respuesta.id %}">Mas</a> - <a href="{% url 'preguntas:minus' respuesta.id %}">Menos</a></p><br />
+	<p>Votos: {{ respuesta.votos }} - Usuario: {{ respuesta.usuario.username }} - Reputacion: {{ respuesta.usuario.datosusuario }} </p>
+	<p><a href="{% url 'preguntas:plus' respuesta.id %}">Mas</a> - <a href="{% url 'preguntas:minus' respuesta.id %}">Menos</a></p><br />
 {% endfor %}
 
 <form action="" method="post">
