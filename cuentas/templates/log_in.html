@@ -1,0 +1,14 @@
+<h1>Login</h1>
+{% if message %}
+	<b>{{message}}</b>
+{% endif %}
+{% if user.is_authenticated %}
+	<h3>Estas logueado como {{ user.username }} - <a href="{% url 'preguntas:preguntas' %}">Ir a las preguntas</a></h3>
+{% else %}
+	<form action="" method="post">
+		{% csrf_token %} 
+		{{form.as_p}}
+		<input type="submit" value="LogIn">
+	</form>	
+	<p>Registrate <a href="{% url 'cuentas:registrate' %}">Aqui</a></p>
+{% endif %}

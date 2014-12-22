@@ -2,6 +2,7 @@ from django.shortcuts import render, render_to_response, redirect, get_object_or
 from django.template import Context, RequestContext
 from django.views.generic import ListView, DetailView, FormView
 from django.views.generic.edit import FormMixin
+from django.contrib.auth import authenticate, login, logout
 from datetime import datetime
 
 from askme.models import Pregunta, Respuesta, Categoria
@@ -17,7 +18,7 @@ class PreguntaListView(ListView):
 		#queryset = [{'popular': Pregunta.objects.order_by('-popularidad'),
 		#			'nuevo': Pregunta.objects.order_by('-fecha_pub')}]
 		return Pregunta.objects.order_by('-popularidad')
-		
+
 class PreguntaDetailView(FormMixin, DetailView):
 	model = Pregunta
 	template_name = "detalle.html"
