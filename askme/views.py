@@ -9,14 +9,15 @@ from askme.forms import PreguntarForm, RespuestaForm
 # Create your views here.
 
 class PreguntaListView(ListView):
-    context_object_name = 'lista_de_preguntas'
-    template_name = 'lista_preguntas.html'
+	context_object_name = 'lista_de_preguntas'
+	template_name = 'lista_preguntas.html'
+	paginate_by = 3
 
-    def get_queryset(self):
-    	queryset = ({'popular': Pregunta.objects.order_by('-popularidad'),
-    				'nuevo': Pregunta.objects.order_by('-fecha_pub')})
-    	return queryset
-
+	def get_queryset(self):
+		#queryset = [{'popular': Pregunta.objects.order_by('-popularidad'),
+		#			'nuevo': Pregunta.objects.order_by('-fecha_pub')}]
+		return Pregunta.objects.order_by('-popularidad')
+		
 class PreguntaDetailView(FormMixin, DetailView):
 	model = Pregunta
 	template_name = "detalle.html"

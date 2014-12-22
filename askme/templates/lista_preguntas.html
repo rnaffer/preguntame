@@ -7,10 +7,20 @@
 <body>
 	{% if lista_de_preguntas %}
 		<ul>
-			{% for pregunta in lista_de_preguntas.popular %}
+			{% for pregunta in lista_de_preguntas %}
 				<li><a href="{% url 'preguntas:detalle' pregunta.id %}"> {{ pregunta.asunto }}</a> - popularidad: {{ pregunta.popularidad }} - respuestas: {{ pregunta.respuestas }}</li>
 			{% endfor %}
 		</ul>
+		{% if is_paginated %}
+			<p>
+				{% if page_obj.has_previous %}
+					<a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+				{% endif %}
+				{% if page_obj.has_next %}
+					<a href="?page={{ page_obj.next_page_number }}">Next</a>
+				{% endif %}
+			</p>
+		{% endif %}
 	{% else %}
 		<p>No hay preguntas disponibles.</p>
 	{% endif %}
