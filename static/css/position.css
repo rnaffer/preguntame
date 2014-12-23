@@ -1,0 +1,88 @@
+.main {
+	height: 500px;
+}
+
+.side {
+	height: ;
+}
+
+#brand {
+	margin: 5px 0 0 15px;
+}
+
+.log {
+	float: right;
+	padding-top: 5px;
+}
+
+.log a {
+	margin-right: 7px;
+}
+
+.menu {
+	padding-top: 10px;
+}
+
+.menu ul li a{
+	padding-bottom: 10px;
+	padding-top: 10px;
+}
+
+#slogan {
+	float: left;
+	margin-top: 17px;
+}
+
+#pregunta {
+	height: 90px;
+	margin-top: 20px;
+}
+
+.contenedor-principal {
+	padding-top: 0px;
+}
+
+.categoria {
+	height: 35px;
+}
+
+#pregunta-usuario {
+	float: left;
+	margin-left: 10px;
+}
+
+#fecha {
+	float: right;
+	margin-right: 10px;
+}
+
+#spotlight {
+}
+
+#respuestas, #popularidad {
+	padding: 0;
+	width: 56px;
+	margin: 2px;
+	height: 85px;
+}
+
+#respuestas h4, #popularidad h4 {
+	margin: 15px 0 15px 0;
+}
+
+#respuestas {
+	
+}
+
+#popularidad {
+
+}
+
+#pregunta-contenido h3 {
+	margin: 15px 0 15px 0;
+}
+
+footer {
+	height: 100px;
+	padding-top: 40px;
+}

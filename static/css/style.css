@@ -1,0 +1,114 @@
+/*GOOGLE FONT API IMPORT*/
+@import url(http://fonts.googleapis.com/css?family=Passion+One|Lobster);
+/*END FONT IMPORT*/
+
+/*HEADER*/
+.all-header {
+	background-color: #1e7145;
+	border-bottom: 5px solid #44B78B;
+}
+
+#brand {
+	color: #fff;
+	font-family: 'Lobster', Verdana, Geneva, sans-serif;
+	font-size: 3em;
+}
+
+.log a {
+	color: #fff;
+	font-family: 'Verdana', Geneva, sans-serif;
+	font-weight: bold;
+	font-size: 0.8em;
+}
+
+.menu ul li a{
+	color: #fff;
+	font-family: 'Passion One', cursive, Arial, Helvetica, sans-serif;
+	font-size: 1.1em;
+	letter-spacing: 1px;
+}
+
+#slogan {
+	color: #44B78B;
+	font-family: 'Tahoma', Geneva, sans-serif;
+	font-weight: bold;
+	font-size: 0.8em;
+}
+/*END HEADER*/
+/*CONTENT*/
+.contenedor-principal {
+	background-color: #F8F8F8;
+}
+
+.main {
+	background-color: #FFF;
+}
+
+.side {
+	background-color: #F8F8F8;
+}
+
+.categoria {
+	background-color: #F8F8F8;
+}
+/*PREGUNTA*/
+#pregunta {
+	background-color: #2EA968;
+}
+
+.shadow {
+	box-shadow: -2px 2px 5px #888;
+}
+
+#respuestas, #popularidad {
+	background-color: #fff;
+	text-align: center;
+}
+
+#respuestas h4, #popularidad h4 {
+	font-size: 1.9em;
+	font-family: 'Lobster', Verdana, Geneva, sans-serif;
+	font-weight: bold;
+	color: #2EA968;
+}
+
+#respuestas p, #popularidad p {
+	font-size: 0.6em;
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-weight: bold;
+	color: #1e7145;
+}
+
+#respuestas {
+}
+
+#popularidad {
+
+}
+
+#pregunta-contenido {
+	color: #fff;
+}
+
+#pregunta-contenido h3 {
+	font-size: 1.7em;
+	font-family: 'Lobster', Verdana, Geneva, sans-serif;
+}
+
+#pregunta-contenido a{
+	font-size: 0.9em;
+	font-family: Verdana, Geneva, sans-serif;
+}
+
+/*END PREGUNTA*/
+/*END CONTENT*/
+/*FOOTER*/
+footer {
+	background-color: #1e7145;
+	text-align: center;
+	color: #fff;
+	font-family: Tahoma;
+	font-size: 1.2em;
+	border-top: 5px solid #44B78B;
+}
+/*END FOOTER*/
