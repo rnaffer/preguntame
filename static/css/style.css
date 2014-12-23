@@ -28,6 +28,13 @@
 	letter-spacing: 1px;
 }
 
+.menu ul li a:hover{
+	color: #fff;
+	background-color: #44B78B;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px; 
+}
+
 #slogan {
 	color: #44B78B;
 	font-family: 'Tahoma', Geneva, sans-serif;
@@ -44,15 +51,11 @@
 	background-color: #FFF;
 }
 
-.side {
-	background-color: #F8F8F8;
-}
-
 .categoria {
 	background-color: #F8F8F8;
 }
 /*PREGUNTA*/
-#pregunta {
+.pregunta {
 	background-color: #2EA968;
 }
 
@@ -80,28 +83,72 @@
 }
 
 #respuestas {
+
 }
 
 #popularidad {
 
 }
 
-#pregunta-contenido {
+.pregunta-contenido {
 	color: #fff;
 }
 
-#pregunta-contenido h3 {
-	font-size: 1.7em;
-	font-family: 'Lobster', Verdana, Geneva, sans-serif;
+.pregunta-usuario {
+	font-family: Arial;
+	color: #fff;
 }
 
-#pregunta-contenido a{
+.pregunta-categoria {
+	font-size: 0.9em;
+	font-weight: bold;
+	background-color: #2A995E;
+}
+
+.pregunta-categoria a {
+	color: #fff;
+	text-decoration: none;
+}
+
+.pregunta-categoria:hover {
+	background-color: #1E7145;
+}
+
+.pregunta-fecha {
+	color: #1e7145;
+	font-weight: bold;
+}
+
+.pregunta-contenido h3 a, 
+.pregunta-contenido-larga h3 a{
+	font-family: 'Lobster', Verdana, Geneva, sans-serif;
+	color: #fff;
+	font-size: 0.95em;
+}
+
+.pregunta-contenido a,
+.pregunta-contenido-larga a{
 	font-size: 0.9em;
 	font-family: Verdana, Geneva, sans-serif;
 }
-
 /*END PREGUNTA*/
 /*END CONTENT*/
+/*SIDE*/
+.side {
+	background-color: #F8F8F8;
+	font-family: Verdana;
+}
+
+.titulo-side a {
+	font-weight: bold;
+	color: #2EA968;
+}
+
+.contenido-side a {
+	color: #444;
+}
+
+/*END SIDE*/
 /*FOOTER*/
 footer {
 	background-color: #1e7145;

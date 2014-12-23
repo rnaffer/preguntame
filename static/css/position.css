@@ -1,11 +1,4 @@
-.main {
-	height: 500px;
-}
-
-.side {
-	height: ;
-}
-
+/*HEADER*/
 #brand {
 	margin: 5px 0 0 15px;
 }
@@ -23,6 +16,11 @@
 	padding-top: 10px;
 }
 
+#menu-nav {
+	float: right;
+	margin-right: 70px;
+}
+
 .menu ul li a{
 	padding-bottom: 10px;
 	padding-top: 10px;
@@ -32,10 +30,14 @@
 	float: left;
 	margin-top: 17px;
 }
+/*END HEADER*/
+/*CONTENT*/
+.main {
+	height: 500px;
+}
 
-#pregunta {
-	height: 90px;
-	margin-top: 20px;
+.main:first-child {
+	padding-top: 10px;
 }
 
 .contenedor-principal {
@@ -46,17 +48,37 @@
 	height: 35px;
 }
 
-#pregunta-usuario {
-	float: left;
-	margin-left: 10px;
+/*PREGUNTA*/
+.pregunta {
+	height: 90px;
+	margin-top: 10px;
 }
 
-#fecha {
+.pregunta-categoria {
+	float: left;
+	border-radius: 5px;
+}
+
+.pregunta-categoria p {
+	padding: 3px;
+	margin: 0;
+}
+
+.pregunta-contenido-larga h3 {
+	margin: 3px 0;
+}
+
+.pregunta-fecha {
 	float: right;
 	margin-right: 10px;
 }
 
-#spotlight {
+.pregunta-usuario {
+	float: right;
+	margin-right: 20px;
+}
+
+.spotlight {
 }
 
 #respuestas, #popularidad {
@@ -78,11 +100,27 @@
 
 }
 
-#pregunta-contenido h3 {
+.pregunta-contenido h3 {
 	margin: 15px 0 15px 0;
 }
+/*END PREGUNTA*/
+/*END CONTENT*/
+/*SIDE*/
+.side {
 
+}
+
+.titulo-side h4 {
+	
+}
+
+.contenido-side {
+	margin-left: 15px;
+}
+/*END SIDE*/
+/*FOOTER*/
 footer {
 	height: 100px;
 	padding-top: 40px;
 }
+/*END FOOTER*/

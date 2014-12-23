@@ -13,13 +13,13 @@
 <body>
 	<div class="container-fluid">
 		<div class="row all-header">
-			<div class="col-md-7">
+			<div class="col-md-5">
 				<div class="navbar-header">
 					<a id="brand" class="navbar-brand" href="#"><strong>?</strong>reguntame</a>
 					<p id="slogan">LA COMUNIDAD LO SABE TODO <br>Y ESTAN DISPUESTOS A AYUDARTE!</p>
 				</div>
 			</div>
-			<div class="col-md-5">
+			<div class="col-md-7">
 				<div class="row">
 					<div class="col-md-12">
 						<div class="log">
@@ -30,12 +30,15 @@
 				</div>
 				<div class="row">
 					<div class="col-md-12 menu">
-						<ul class="nav navbar-nav">
-							<li><a href="#">PREGUNTAS</a></li>
-							<li><a href="#">CATEGORIAS</a></li>
-							<li><a href="#">USUARIOS</a></li>
-							<li><a href="#">FAQ</a></li>
-						</ul>
+						<div id="menu-nav">
+							<ul class="nav navbar-nav">
+								<li><a href="#">PREGUNTAS</a></li>
+								<li><a href="#">CATEGORIAS</a></li>
+								<li><a href="#">USUARIOS</a></li>
+								<li><a href="#">ACERCA DE</a></li>
+								<li><a href="#">FAQ</a></li>
+							</ul>
+						</div>						
 					</div>
 				</div>
 			</div>
@@ -48,9 +51,39 @@
 		<div class="row contenedor-principal">
 			<div class="col-md-9 main">
 				<div class="row">
-					<div id="pregunta" class="col-md-10 col-md-offset-1">
+					<div class="col-md-10 col-md-offset-1 pregunta">
 						<div class="row shadow">
-							<div id="spotlight" class="col-md-2">
+							<div class="col-md-2 spotlight">
+								<div class="row">
+									<div id="respuestas" class="col-md-6" >
+										<h4>25</h4>
+										<p>Preguntas</p>
+									</div>
+									<div id="popularidad" class="col-md-6" >
+										<h4>122</h4>
+										<p>Popularidad</p>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-10 pregunta-contenido">
+								<h3><a href="#">¿Quieres hacer una pregunta mas larga?</a></h3>
+								<div class="pregunta-categoria">
+									<p><a href="#">Educación</a></p>
+								</div>
+								<div class="pregunta-fecha">
+									<p>25/02/2014</p>
+								</div>
+								<div class="pregunta-usuario">
+									<p>By <a href="#">Naffer</a> - 2451p</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-10 col-md-offset-1 pregunta">
+						<div class="row shadow">
+							<div class="col-md-2 spotlight">
 								<div class="row">
 									<div id="respuestas" class="col-md-6" >
 										<h4>8</h4>
@@ -62,13 +95,16 @@
 									</div>
 								</div>
 							</div>
-							<div id="pregunta-contenido" class="col-md-10">
-								<h3>¿Quieres hacer una pregunta?</h3>
-								<div id="pregunta-usuario">
-									<a href="#">Naffer</a>
+							<div class="col-md-10 pregunta-contenido-larga">
+								<h3><a href="#">¿Quieres hacer una pregunta mas larga aun mas largaaa aaaa?</a></h3>
+								<div class="pregunta-categoria">
+									<p><a href="#">Música</a></p>
 								</div>
-								<div id="fecha">
+								<div class="pregunta-fecha">
 									<p>25/02/2014</p>
+								</div>
+								<div class="pregunta-usuario">
+									<p>By <a href="#">Naffer</a> - 2451p</p>
 								</div>
 							</div>
 						</div>
@@ -76,7 +112,30 @@
 				</div>
 			</div>
 			<div class="col-md-3 side">
-				
+				<div class="titulo-side">
+					<h4><a href="#">Populares</a></h4>
+				</div>
+				<div class="contenido-side">
+					<p><a href="#">¿esta es una pergunta demasiado larga para probar?</a></p>
+					<p><a href="#">¿Pregunta?</a></p>
+					<p><a href="#">¿Pregunta?</a></p>
+				</div>
+				<div class="titulo-side">
+					<h4><a href="#">Nuevos</a></h4>
+				</div>
+				<div class="contenido-side">
+					<p><a href="#">¿Pregunta?</a></p>
+					<p><a href="#">¿Pregunta?</a></p>
+					<p><a href="#">¿Pregunta?</a></p>
+				</div>
+				<div class="titulo-side">
+					<h4><a href="#">Recomendados</a></h4>
+				</div>
+				<div class="contenido-side">
+					<p><a href="#">¿Pregunta?</a></p>
+					<p><a href="#">¿Pregunta?</a></p>
+					<p><a href="#">¿Pregunta?</a></p>
+				</div>
 			</div>
 		</div>
 	</div>
