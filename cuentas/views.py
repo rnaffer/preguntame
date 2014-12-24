@@ -6,13 +6,15 @@ from django.contrib.auth.forms import (
 AuthenticationForm, SetPasswordForm, PasswordChangeForm)
 from django.contrib import messages
 
+from .decorator import anonymous_required
 from .forms import UserCreateForm
 from .models import DatosUsuario
 
+@anonymous_required
 class LoginFormView(FormView):
 	template_name = "log_in.html"
 	form_class = AuthenticationForm
-	success_url = '/cuentas/login'
+	success_url = '/preguntas'
 
 	def form_valid(self, form):
 		user = form.get_user()
@@ -23,27 +25,28 @@ class LoginFormView(FormView):
 		messages.add_message(self.request, messages.ERROR,
 			'Usuario o Contraseña Invalido. Por Favor Intente Nuevamente')
 		return super(LoginFormView, self).form_invalid(form)
-		
+
+@anonymous_required
 class AccountRegistrationView(CreateView):
-    template_name = "register.html"
-    form_class = UserCreateForm
-    success_url = '/cuentas/login'
+	template_name = "register.html"
+	form_class = UserCreateForm
+	success_url = '/cuentas/login'
 
-    def get_success_url(self):
-    	if 'next' in self.request.GET:
-    		return self.request.GET.get('next')
+	def get_success_url(self):
+		if 'next' in self.request.GET:
+			return self.request.GET.get('next')
 
-    	return self.success_url
+		return self.success_url
 
-    def form_valid(self, form):
-    	saved_user = form.save(self.request.POST)
-    	user = authenticate(
-    		username=saved_user.username,
-    		password=form.cleaned_data['password1'])
-    	login(self.request, user)
-    	datos = DatosUsuario.objects.create(usuario=user, reputacion=0)
-    	datos.save()
-    	return HttpResponseRedirect(self.get_success_url())
+	def form_valid(self, form):
+		saved_user = form.save(self.request.POST)
+		user = authenticate(
+			username=saved_user.username,
+			password=form.cleaned_data['password1'])
+		login(self.request, user)
+		datos = DatosUsuario.objects.create(usuario=user, reputacion=0)
+		datos.save()
+		return HttpResponseRedirect(self.get_success_url())
 
 def logout_view(request):
 		logout(request)

@@ -1,17 +1,10 @@
-<h1>Login</h1>
-{% if messages %}
-<ul class="messages">
-    {% for message in messages %}
-    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-    {% endfor %}
-</ul>
-{% endif %}
-{% if user.is_authenticated %}
-	<h3>Estas logueado como {{ user.username }} - <a href="{% url 'preguntas:preguntas' %}">Ir a las preguntas</a></h3>
-{% else %}
-	<form action="" method="post">
-		{% csrf_token %} 
-		{{form.as_p}}
-		<input type="submit" value="LogIn">
-	</form>	
-{% endif %}
+{% extends "login-register-base.html" %}
+{% block instancia %}
+	login
+{% endblock instancia %}
+{% block header %}
+	Acceder
+{% endblock header %}
+{% block submit %}
+	LogIn
+{% endblock submit %}

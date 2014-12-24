@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block principal %}
+	<div class="row categoria">
+		
+	</div>
+	<div class="row contenedor-principal">
+		<div class="col-md-9 main">
+			{% block contenido %}
+				
+			{% endblock contenido %}
+		</div>
+		<div class="col-md-3 side">
+			<div class="titulo-side">
+				<h4><a href="#">Populares</a></h4>
+			</div>
+			<div class="contenido-side">
+				<p><a href="#">¿esta es una pergunta demasiado larga para probar?</a></p>
+				<p><a href="#">¿Pregunta?</a></p>
+				<p><a href="#">¿Pregunta?</a></p>
+			</div>
+		</div>
+	</div>
+{% endblock principal %}

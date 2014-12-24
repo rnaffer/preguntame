@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block principal %}
+	<div class="row contenedor-principal-log">
+		<div class="col-md-8 registro-log {% block instancia %}{% endblock instancia %}">
+			{% if messages %}
+			    {% for message in messages %}
+			    	<div {% if message.tags %} class="alert bg-danger"{% endif %}>
+			    		{{ message }}
+			    	</div>
+			    	
+			    {% endfor %}
+			{% endif %}
+			<h1>{% block header %}{% endblock header %}</h1>
+			<div class="formulario">
+				<form action="" method="post">
+				{% csrf_token %} 
+				{% for field in form %}
+					<div class="form-group {% if field.errors %}has-error{% endif %}">
+						<div class="row">
+							<div class="col-md-2 col-md-offset-3">
+								<label for="id_{{ field.name}}" class="control-label">{{ field.label.title }}</label>
+							</div>
+							<div class="col-md-4">
+								<div class="controls">
+									{{ field }}
+									{% if field.errors %}
+										<span class="inline-help">{% for error in field.errors %}
+										{{ error }}
+										{% endfor %}</span>
+									{% endif %}
+								</div>
+							</div>
+						</div>
+					</div>
+				{% endfor %}
+				<div class="form-group">
+					<input class="btn btn-default btn-lg verde" type="submit" value="{% block submit %}{% endblock submit %}">	
+				</div>
+				</form>
+			</div>	
+		</div>
+		<div class="col-md-4 other-login">
+			<h3>Proximamente</h3>
+			<h4>Facebook/Twitter Login</h4>
+		</div>
+	</div>
+{% endblock principal %}

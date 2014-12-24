@@ -1,5 +1,5 @@
-{% extends "base.html" %}
-{% block principal %}
+{% extends "base_extendida.html" %}
+{% block contenido %}
 	{% if lista_de_preguntas %}
 		{% for pregunta in lista_de_preguntas %}
 			<div class="row">
@@ -18,7 +18,7 @@
 							</div>
 						</div>
 						<div class="col-md-10 pregunta-contenido">
-							<h3><a href="#">¿{{ pregunta.asunto }}?</a></h3>
+							<h3><a href="{% url 'preguntas:detalle' pregunta.id %}">¿{{ pregunta.asunto }}?</a></h3>
 							<div class="pregunta-categoria">
 								<p><a href="#">{{ pregunta.categoria }}</a></p>
 							</div>
@@ -33,7 +33,17 @@
 				</div>
 			</div>
 		{% endfor %}
+		{% if is_paginated %}
+			<p>
+				{% if page_obj.has_previous %}
+					<a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+				{% endif %}
+				{% if page_obj.has_next %}
+					<a href="?page={{ page_obj.next_page_number }}">Next</a>
+				{% endif %}
+			</p>
+		{% endif %}
 	{% else %}
 		<p>No hay preguntas disponibles.</p>
 	{% endif %}
-{% endblock principal %}
+{% endblock contenido %}

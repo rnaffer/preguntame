@@ -15,7 +15,7 @@
 		<div class="row all-header">
 			<div class="col-md-5">
 				<div class="navbar-header">
-					<a id="brand" class="navbar-brand" href="#"><strong>?</strong>reguntame</a>
+					<a id="brand" class="navbar-brand" href="{% url 'preguntas:preguntas' %}"><strong>?</strong>reguntame</a>
 					<p id="slogan">LA COMUNIDAD LO SABE TODO <br>Y ESTAN DISPUESTOS A AYUDARTE!</p>
 				</div>
 			</div>
@@ -27,8 +27,8 @@
 								<a class="log-area" href="#">{{ user.username }}</a>
 								<a class="log-area" href="{% url 'cuentas:logout' %}">Salir</a>
 							{% else %}
-								<a class="log-area" href="#">Ingresa</a>
-								<a class="log-area" href="#">Registrate</a>
+								<a class="log-area" href="{% url 'cuentas:login' %}">Ingresa</a>
+								<a class="log-area" href="{% url 'cuentas:registro' %}">Registrate</a>
 							{% endif %}
 						</div>
 					</div>
@@ -50,30 +50,14 @@
 		</div>
 	</div>
 	<div class="container">
-		<div class="row categoria">
+		{% block principal %}
 			
-		</div>
-		<div class="row contenedor-principal">
-			<div class="col-md-9 main">
-				{% block principal %}
-						
-				{% endblock principal %}
-			</div>
-			<div class="col-md-3 side">
-				<div class="titulo-side">
-					<h4><a href="#">Populares</a></h4>
-				</div>
-				<div class="contenido-side">
-					<p><a href="#">¿esta es una pergunta demasiado larga para probar?</a></p>
-					<p><a href="#">¿Pregunta?</a></p>
-					<p><a href="#">¿Pregunta?</a></p>
-				</div>
-			</div>
-		</div>
+		{% endblock principal %}
 	</div>
 	<footer>
 		<p>Creado por <a href="#">Naffer Reyes</a></p>
 	</footer>
 	<script src="{% static "js/bootstrap.min.js" %}"></script>
+	<script src="{% static "js/main.js" %}"></script>
 </body>
 </html>

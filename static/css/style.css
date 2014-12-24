@@ -47,6 +47,10 @@
 	background-color: #F8F8F8;
 }
 
+.contenedor-principal-log {
+	background-color: #EDEDED;
+}
+
 .main {
 	background-color: #FFF;
 }
@@ -132,6 +136,52 @@
 	font-family: Verdana, Geneva, sans-serif;
 }
 /*END PREGUNTA*/
+/*LOGIN*/
+.registro-log {
+	background-color: #F8F8F8;
+}
+
+.registro-log h1 {
+	font-family: Verdana, Geneva, sans-serif;
+	font-weight: bold;
+	color: #2EA968;
+}
+
+input[type='text'],
+input[type='password'],
+input[type='email'] {
+	border-color: #2EA968;
+}
+.registro-log label{
+	font-family: Verdana, Geneva, sans-serif;
+	font-weight: bold;
+	color: #2EA968;
+}
+
+.login label {
+	font-size: 1.3em;
+	margin-top: 5px;
+}
+
+.regristro label {
+	font-size: 1.2em;
+}
+
+.other-login {
+	text-align: center;
+	padding-top: 30px;
+	font-family: Verdana, Geneva, sans-serif;
+	font-weight: bold;
+	color: #666;
+}
+/*END LOGIN*/
+
+.verde {
+	background-color: #2EA968;
+	color: #fff;
+	font-family: Verdana, Geneva, sans-serif;
+}
+
 /*END CONTENT*/
 /*SIDE*/
 .side {
