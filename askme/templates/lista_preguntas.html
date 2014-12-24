@@ -1,28 +1,39 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>Preguntame!</title>
-</head>
-<body>
+{% extends "base.html" %}
+{% block principal %}
 	{% if lista_de_preguntas %}
-		<ul>
-			{% for pregunta in lista_de_preguntas %}
-				<li><a href="{% url 'preguntas:detalle' pregunta.id %}"> {{ pregunta.asunto }}</a> - popularidad: {{ pregunta.popularidad }} - respuestas: {{ pregunta.respuestas }}</li>
-			{% endfor %}
-		</ul>
-		{% if is_paginated %}
-			<p>
-				{% if page_obj.has_previous %}
-					<a href="?page={{ page_obj.previous_page_number }}">Previous</a>
-				{% endif %}
-				{% if page_obj.has_next %}
-					<a href="?page={{ page_obj.next_page_number }}">Next</a>
-				{% endif %}
-			</p>
-		{% endif %}
+		{% for pregunta in lista_de_preguntas %}
+			<div class="row">
+				<div class="col-md-10 col-md-offset-1 pregunta">
+					<div class="row shadow">
+						<div class="col-md-2 spotlight">
+							<div class="row">
+								<div id="respuestas" class="col-md-6" >
+									<h4>{{ pregunta.respuestas }}</h4>
+									<p>Respuestas</p>
+								</div>
+								<div id="popularidad" class="col-md-6" >
+									<h4>{{ pregunta.popularidad }}</h4>
+									<p>Popularidad</p>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-10 pregunta-contenido">
+							<h3><a href="#">¿{{ pregunta.asunto }}?</a></h3>
+							<div class="pregunta-categoria">
+								<p><a href="#">{{ pregunta.categoria }}</a></p>
+							</div>
+							<div class="pregunta-fecha">
+								<p>25/02/2014</p>
+							</div>
+							<div class="pregunta-usuario">
+								<p>By <a href="#">{{ pregunta.usuario }}</a> - {{ pregunta.usuario.datosusuario.reputacion }}p</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		{% endfor %}
 	{% else %}
 		<p>No hay preguntas disponibles.</p>
 	{% endif %}
-</body>
-</html>
+{% endblock principal %}

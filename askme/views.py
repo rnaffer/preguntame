@@ -14,7 +14,7 @@ from askme.forms import PreguntarForm, RespuestaForm
 class PreguntaListView(ListView):
 	context_object_name = 'lista_de_preguntas'
 	template_name = 'lista_preguntas.html'
-	paginate_by = 3
+	paginate_by = 15
 
 	def get_queryset(self):
 		#queryset = [{'popular': Pregunta.objects.order_by('-popularidad'),
