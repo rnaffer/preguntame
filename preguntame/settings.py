@@ -54,6 +54,7 @@ ROOT_URLCONF = 'preguntame.urls'
 
 WSGI_APPLICATION = 'preguntame.wsgi.application'
 
+LOGIN_REDIRECT_URL = 'preguntas:preguntas'
 
 # Database
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases

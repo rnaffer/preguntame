@@ -94,14 +94,6 @@
 	margin: 15px 0 15px 0;
 }
 
-#respuestas {
-	
-}
-
-#popularidad {
-
-}
-
 .pregunta-contenido h3 {
 	margin: 15px 0 15px 0;
 }
@@ -115,6 +107,15 @@
 
 .registro-log h1 {
 	margin: 40px 0;
+}
+
+.pregunta-img img {
+	width: 20px;
+	height: 25px;
+	float: right;
+	padding-bottom: 5px;
+	margin-right: 5px;
+	border-radius: 10px;
 }
 
 .form-group {

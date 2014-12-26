@@ -1,16 +1,15 @@
 from django.template import RequestContext
 from django.shortcuts import render_to_response, redirect, HttpResponseRedirect, render
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.views.generic import FormView, CreateView
 from django.contrib.auth.forms import (
 AuthenticationForm, SetPasswordForm, PasswordChangeForm)
 from django.contrib import messages
 
-from .decorator import anonymous_required
 from .forms import UserCreateForm
 from .models import DatosUsuario
 
-@anonymous_required
 class LoginFormView(FormView):
 	template_name = "log_in.html"
 	form_class = AuthenticationForm
@@ -26,7 +25,6 @@ class LoginFormView(FormView):
 			'Usuario o Contraseña Invalido. Por Favor Intente Nuevamente')
 		return super(LoginFormView, self).form_invalid(form)
 
-@anonymous_required
 class AccountRegistrationView(CreateView):
 	template_name = "register.html"
 	form_class = UserCreateForm
@@ -48,6 +46,7 @@ class AccountRegistrationView(CreateView):
 		datos.save()
 		return HttpResponseRedirect(self.get_success_url())
 
+@login_required
 def logout_view(request):
 		logout(request)
 		return redirect('/preguntas')
