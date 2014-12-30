@@ -3,6 +3,7 @@ $(document).ready(function() {
 		$('#id_username').addClass('form-control');
 		$('#id_password').addClass('form-control');
 	};
+
 	if (window.location.pathname == '/cuentas/registro/') {
 		$('#id_username').addClass('form-control');
 		$('#id_nombre').addClass('form-control');
@@ -11,4 +12,8 @@ $(document).ready(function() {
 		$('#id_password1').addClass('form-control');
 		$('#id_password2').addClass('form-control');
 	};
+
+	$('#responder').click(function(event) {
+		$('#form-responder').fadeIn('slow/400/fast');
+	});
 });

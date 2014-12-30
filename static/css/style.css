@@ -21,18 +21,31 @@
 	font-size: 0.8em;
 }
 
-.menu ul li a{
+.nav > li > a {
 	color: #fff;
 	font-family: 'Passion One', cursive, Arial, Helvetica, sans-serif;
 	font-size: 1.1em;
 	letter-spacing: 1px;
 }
 
-.menu ul li a:hover{
-	color: #fff;
-	background-color: #44B78B;
-	border-top-left-radius: 5px;
+.nav > li > a:hover, .nav > li > a:focus {
+    background-color: #44B78B;
+    border-top-left-radius: 5px;
 	border-top-right-radius: 5px; 
+}
+
+.nav .open > a, .nav .open > a:hover, .nav .open > a:focus {
+    background-color: #44B78B;
+    color: #fff;
+}
+
+.dropdown-menu > li > a {
+	color: #44B78B;
+}
+
+.dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {
+	background-color: #44B78B;
+	color: #fff;
 }
 
 #slogan {
@@ -199,6 +212,39 @@ input[type='email'] {
 }
 
 /*END SIDE*/
+/*DETAIL*/
+
+.pregunta-titulo,
+.respuestas {
+	color: #fff;
+	background-color: #44B78B;
+	font-family: 'Lobster', Verdana, Geneva, sans-serif;
+	text-align: center;
+}
+
+.pregunta-detalle,
+.answer {
+	background-color: #F8F8F8;
+}
+
+.votos {
+	background-color: #44B78B;
+	border-top-right-radius: 5px;
+	color: #fff;
+	font-weight: bold;
+}
+
+.responder {
+	display: none;
+	background-color: #F8F8F8;
+}
+
+.boton-res {
+	background-color: #44B78B;
+	color: #fff;
+	font-size: 1.5em;
+}
+/*END DETAIL*/
 /*FOOTER*/
 footer {
 	background-color: #1e7145;

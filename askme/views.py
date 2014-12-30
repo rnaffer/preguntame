@@ -48,7 +48,7 @@ class PreguntaDetailView(FormMixin, DetailView):
 			return redirect('/preguntas/{0}' .format(pregunta.id))
 		else:
 			form = RespuestaForm()
-		return render(self.request, self.template_name, self.locals())
+		return render(self.request, self.template_name, self.request)
 
 class PreguntameFormView(FormView):
 	template_name = 'preguntar.html'
