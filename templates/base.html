@@ -37,14 +37,25 @@
 					<div class="col-md-12 menu">
 						<div id="menu-nav">
 							<ul class="nav navbar-nav">
-								<li><a href="#">PREGUNTAS</a></li>
+								<li class="dropdown">
+									<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">PREGUNTAS <span class="caret"></span></a>
+					                <ul class="dropdown-menu" role="menu">
+					                  <li><a href="{% url 'preguntas:preguntas' %}">Todas</a></li>
+					                  <li><a href="{% url 'preguntas:preguntas' %}">Populares</a></li>
+					                  <li><a href="{% url 'preguntas:preguntas' %}">Nuevas</a></li>
+					                </ul>
 								<li class="dropdown">
 									<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">CATEGORIAS <span class="caret"></span></a>
 					                <ul class="dropdown-menu" role="menu">
-					                  <li><a href="#">Action</a></li>
-					                  {% for categoria in categorias %}
-					                  	<li><a href="#">{{ categoria.titulo }}</a></li>	
-					                  {% endfor %}
+					                  <li><a href="{% url 'preguntas:categoria' '10' %}">Ciencia</a></li>
+					                  <li><a href="{% url 'preguntas:categoria' '1' %}">Cocina</a></li>
+					                  <li><a href="{% url 'preguntas:categoria' '8' %}">Deporte</a></li>
+					                  <li><a href="{% url 'preguntas:categoria' '6' %}">Educacion</a></li>
+					                  <li><a href="{% url 'preguntas:categoria' '4' %}">Internet</a></li>
+					                  <li><a href="{% url 'preguntas:categoria' '7' %}">Musica</a></li>
+					                  <li><a href="{% url 'preguntas:categoria' '9' %}">Politica</a></li>
+					                  <li><a href="{% url 'preguntas:categoria' '2' %}">Programacion</a></li>
+					                  <li><a href="{% url 'preguntas:categoria' '3' %}">Videojuegos</a></li>
 					                </ul>
 						        </li>
 								<li><a href="#">USUARIOS</a></li>

@@ -21,6 +21,12 @@ class PreguntaListView(ListView):
 		#			'nuevo': Pregunta.objects.order_by('-fecha_pub')}]
 		return Pregunta.objects.order_by('-popularidad')
 
+def categoria(request, categoria_id):
+	categorias = Categoria.objects.all()
+	cat = get_object_or_404(Categoria, pk=categoria_id)
+	lista_de_preguntas = Pregunta.objects.filter(categoria = cat)
+	return render_to_response("lista_preguntas.html", locals())
+
 class PreguntaDetailView(FormMixin, DetailView):
 	model = Pregunta
 	template_name = "detalle.html"

@@ -25,6 +25,7 @@ class PreguntaInline(admin.StackedInline):
 	raw_id_fields = ('usuario',)
 
 class CategoriaAdmin(admin.ModelAdmin):
+	list_display = ('pk', 'titulo')
 	inlines = [PreguntaInline]
 
 admin.site.register(Categoria, CategoriaAdmin)
