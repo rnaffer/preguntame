@@ -1,0 +1,35 @@
+{% load static %}
+
+<div class="row">
+	<div class="col-md-10 col-sm-10 col-md-offset-1 pregunta">
+		<div class="row shadow">
+			<div class="col-md-2 spotlight">
+				<div class="row">
+					<div id="respuestas" class="col-md-6" >
+						<h4>{{ object.answer_count }}</h4>
+						<p>Respuestas</p>
+					</div>
+					<div id="popularidad" class="col-md-6" >
+						<h4>{{ object.popularity }}</h4>
+						<p>Popularidad</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-10 pregunta-contenido">
+				<h3><a href="{{ object.get_absolute_url }}">{{ object.issue }}</a></h3>
+				<div class="pregunta-categoria">
+					<p><a href="#">{{ object.category }}</a></p>
+				</div>
+				<div class="pregunta-usuario">
+					<p><a href="#">{{ object.user }}</a> - {{ object.user.details.rating }}p</p>
+				</div>
+				<div class="pregunta-img">
+					<img src="{% static 'img/profile.png' %}" alt="profile">
+				</div>
+				<div class="pregunta-fecha">
+					<p>{{ object.pub_date|date:"d/M/Y - P" }}</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

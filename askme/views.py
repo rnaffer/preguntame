@@ -1,84 +1,162 @@
-from django.shortcuts import render, render_to_response, redirect, get_object_or_404
-from django.template import Context, RequestContext
-from django.views.generic import ListView, DetailView, FormView
-from django.views.generic.edit import FormMixin
-from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.models import User
-from datetime import datetime
+from __future__ import absolute_import
 
-from askme.models import Pregunta, Respuesta, Categoria
-from cuentas.models import DatosUsuario
-from askme.forms import PreguntarForm, RespuestaForm
-# Create your views here.
+from django.contrib import messages 
+from django.views import generic
+from django.shortcuts import redirect
+from django.http import Http404
+from django.db.models import Count
 
-class PreguntaListView(ListView):
-	context_object_name = 'lista_de_preguntas'
-	template_name = 'lista_preguntas.html'
-	paginate_by = 15
+from accounts.models import UserDetail
+from .models import Answer, Category, Ask
+from .forms import AnswerForm, AskForm
 
-	def get_queryset(self):
-		#queryset = [{'popular': Pregunta.objects.order_by('-popularidad'),
-		#			'nuevo': Pregunta.objects.order_by('-fecha_pub')}]
-		return Pregunta.objects.order_by('-popularidad')
+from braces import views
 
-def categoria(request, categoria_id):
-	categorias = Categoria.objects.all()
-	cat = get_object_or_404(Categoria, pk=categoria_id)
-	lista_de_preguntas = Pregunta.objects.filter(categoria = cat)
-	return render_to_response("lista_preguntas.html", locals())
+class AskSortedMixin(object):
+	def get_context_data(self, **kwargs):
+		context = super(AskSortedMixin, self).get_context_data(**kwargs)
+		# add news and popular asks for sidebar
+		context['news_list'] = Ask.objects.news()[:5]
+		context['popular_list'] = Ask.objects.popular()[:5]
+		return context
 
-class PreguntaDetailView(FormMixin, DetailView):
-	model = Pregunta
-	template_name = "detalle.html"
-	form_class = RespuestaForm
+class AskListView(
+	AskSortedMixin,
+	generic.ListView
+	):
+	model = Ask 
 
 	def get_queryset(self):
-		return Pregunta.objects.all()
+		queryset = super(AskListView, self).get_queryset()
+		# the annotate avoid make a query in each view
+		queryset = queryset.annotate(answer_count=Count('answers'))
+		return queryset
+
+class CategoryView(
+	AskSortedMixin,
+	generic.ListView
+	):
+	model = Ask
+	template_name = 'askme/ask_list.html'
 
 	def get_context_data(self, **kwargs):
-		context = super(PreguntaDetailView, self).get_context_data(**kwargs)
-		context['form'] = RespuestaForm()
+		context = super(CategoryView, self).get_context_data(**kwargs)
+		# add the category to the context for show the user selection
+		category = self.get_category()
+		context['category'] = category
+		return context
+
+	# get the slug passed as argument in the url and fin the category
+	def get_category(self):
+		slug = self.kwargs.get('slug', None)
+
+		if slug is not None:
+			return Category.objects.get(slug=slug)
+		else:
+			raise AttributeError("Se deben usar etiquetas para las urls")
+
+	def get_queryset(self):
+		queryset = super(CategoryView, self).get_queryset()
+		queryset = Ask.objects.filter(category=self.get_category()).order_by('-pub_date')
+		# add the annotate to the query because it's another view
+		queryset = queryset.annotate(answer_count=Count('answers'))
+		return queryset
+
+class AskCreateView(
+	views.LoginRequiredMixin,
+	generic.CreateView
+	):
+	form_class = AskForm
+	model = Ask
+
+	def form_valid(self, form):
+		# set the user to the new ask
+		self.object = form.save(commit=False)
+		self.object.user = self.request.user
+		self.object.save()
+		# increase rating of the ask user
+		user_detail = UserDetail.objects.get(user=self.request.user)
+		user_detail.rating += 2
+		user_detail.save()
+		return super(AskCreateView, self).form_valid(form)
+	
+class AskDetailList(
+	AskSortedMixin,
+	views.PrefetchRelatedMixin,
+	generic.DetailView
+	):
+	form_class = AnswerForm
+	model = Ask
+	http_method_names = ['get', 'post']
+	prefetch_related = ('answers',)
+
+	def get_context_data(self, **kwargs):
+		# update the form info
+		context = super(AskDetailList, self).get_context_data(**kwargs)
+		context.update({'form': self.form_class(self.request.POST or None)})
+		# add the ask category to the context
+		context['category'] = self.object.category
+		context['related_list'] = Ask.objects.related(self.object.category.title)[:5]
 		return context
 
 	def post(self, request, *args, **kwargs):
-		form = self.get_form(RespuestaForm)
+		form = self.form_class(request.POST)
 		if form.is_valid():
-			respuesta = form.save(commit=False)
-			pregunta = self.model.objects.get(pk=self.kwargs['pk'])
-			respuesta.usuario = self.request.user
-			respuesta.pregunta = pregunta
-			respuesta.save()
-			pregunta.respuestas += 1
-			pregunta.popularidad += 4
-			pregunta.save()
-			return redirect('/preguntas/{0}' .format(pregunta.id))
+			# get the ask and set populaity
+			obj = self.get_object()
+			obj.popularity += 6
+			obj.save()
+			# increase the rating of the ask user
+			ask_user_detail = UserDetail.objects.get(user=obj.user)
+			ask_user_detail.rating += 2
+			ask_user_detail.save()
+			# create the answer and redirect to the ask
+			answer = form.save(commit=False)
+			answer.user = self.request.user
+			answer.ask = obj
+			answer.save()
 		else:
-			form = RespuestaForm()
-		return render(self.request, self.template_name, self.request)
+			return self.get(request, *args, **kwargs)
+		return redirect(obj)
+		
+class VoteUpView(
+	views.LoginRequiredMixin,
+	generic.RedirectView
+	):
+	
+	def get(self, request, *args, **kwargs):
+		# find the answer pk and set vote
+		id = self.kwargs['pk']
+		answer = Answer.objects.get(pk=id)
+		answer.votes += 1
+		answer.save()
+		# find the answer user and increase rating
+		user_detail = UserDetail.objects.get(user=answer.user)
+		user_detail.rating += 3
+		user_detail.save()
+		# increase the ask popularity and redirect to ask
+		obj = answer.ask
+		obj.popularity += 2
+		obj.save()
+		return redirect(obj)
 
-class PreguntameFormView(FormView):
-	template_name = 'preguntar.html'
-	form_class = PreguntarForm
-	success_url = '/preguntas'
-
-	def form_valid(self, form):
-		pregunta = form.save(commit=False)
-		pregunta.usuario = self.request.user
-		pregunta.save()
-		return super(PreguntameFormView, self).form_valid(form)
-
-def plus(request, respuesta_id):
-	respuesta = get_object_or_404(Respuesta, pk=respuesta_id)
-	respuesta.votos += 1
-	usuario = get_object_or_404(User, username=respuesta.usuario.username)
-	datos = DatosUsuario.objects.get(usuario=usuario)
-	datos.reputacion += 7
-	datos.save()
-	respuesta.save()
-	return redirect('/preguntas/{0}' .format(respuesta.pregunta.id))
-
-def minus(request, respuesta_id):
-	respuesta = get_object_or_404(Respuesta, pk=respuesta_id)
-	respuesta.votos -= 1
-	respuesta.save()
-	return redirect('/preguntas/{0}' .format(respuesta.pregunta.id))
+class VoteDownView(
+	views.LoginRequiredMixin,
+	generic.RedirectView
+	):
+	
+	def get(self, request, *args, **kwargs):
+		# find the answer pk and remove vote
+		id = self.kwargs['pk']
+		answer = Answer.objects.get(pk=id)
+		answer.votes -= 1
+		answer.save()
+		# find the answer user and decrease rating
+		user_detail = UserDetail.objects.get(user=answer.user)
+		user_detail.rating -= 2
+		user_detail.save()
+		# decrease the ask popularity and redirect to ask
+		obj = answer.ask
+		obj.popularity -= 1
+		obj.save()
+		return redirect(obj)

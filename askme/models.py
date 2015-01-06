@@ -1,32 +1,81 @@
-from django.db import models
 from django.contrib.auth.models import User
+from django.core.urlresolvers import reverse
+from django.template.defaultfilters import slugify
 
-# Create your models here.
+from django.db import models
 
-class Categoria(models.Model):
-	titulo = models.CharField(max_length=150)
-
-	def __str__(self):
-		return self.titulo
-
-class Pregunta(models.Model):
-	asunto = models.CharField(max_length=150)
-	descripcion = models.TextField()
-	fecha_pub = models.DateTimeField(auto_now_add=True)
-	popularidad = models.IntegerField(default=0)
-	respuestas = models.IntegerField(default=0)
-	categoria = models.ForeignKey(Categoria)
-	usuario = models.ForeignKey(User)
+class Category(models.Model):
+	title = models.CharField(max_length=50)
+	slug = models.SlugField(max_length='255', blank=True)
 
 	def __str__(self):
-		return self.asunto
+		return self.title
 
-class Respuesta(models.Model):
-	pregunta = models.ForeignKey(Pregunta)
-	contenido = models.TextField()
-	respuesta_fecha_pub = models.DateTimeField(auto_now_add=True)
-	usuario = models.ForeignKey(User)
-	votos = models.IntegerField(default=0)
+	def save(self, *args, **kwargs):
+		self.slug = slugify(self.title)
+		return super(Category, self).save(*args, **kwargs)
+
+class AskQuerySet(models.query.QuerySet):
+	def news(self):
+		return self.order_by('-pub_date')
+
+	def popular(self):
+		return self.order_by('-popularity')
+
+	def related(self, category):
+		return self.filter(category__title=category).order_by('-popularity')
+
+class AskManager(models.Manager):
+	def news(self):
+		return self.get_query_set().news()
+
+	def popular(self):
+		return self.get_query_set().popular()
+
+	def related(self, category):
+		return self.get_query_set().related(category)
+
+	def get_query_set(self):
+		return AskQuerySet(self.model, using=self._db)
+
+class Ask(models.Model):
+	user = models.ForeignKey(User, related_name='asks')
+	issue = models.CharField(max_length=150)
+	description = models.TextField()
+	pub_date = models.DateTimeField(auto_now_add=True)
+	popularity = models.IntegerField(default=0)
+	category = models.ForeignKey(Category, related_name='category')
+	slug = models.SlugField(max_length='255', blank=True)
+
+	objects = AskManager()
+
+	class Meta:
+		unique_together = ('user', 'issue')
 
 	def __str__(self):
-		return self.contenido
+		return self.issue
+
+	def save(self, *args, **kwargs):
+		self.slug = slugify(self.issue)
+		return super(Ask, self).save(*args, **kwargs)
+
+	def get_absolute_url(self):
+		return reverse('askme:detail', kwargs={'slug': self.slug})
+
+class Answer(models.Model):
+	user = models.ForeignKey(User, related_name='answers')
+	ask = models.ForeignKey(Ask, related_name='answers')
+	content = models.TextField()
+	answer_pub_date = models.DateTimeField(auto_now_add=True)
+	votes = models.IntegerField(default=0)
+	slug = models.SlugField(max_length='255', blank=True, default='')
+
+	class Meta:
+		unique_together = ('ask', 'content')
+
+	def __str__(self):
+		return self.content
+
+	def save(self, *args, **kwargs):
+		self.slug = slugify(self.ask)
+		return super(Answer, self).save(*args, **kwargs)

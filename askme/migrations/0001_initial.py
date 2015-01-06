@@ -13,43 +13,67 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Categoria',
+            name='Answer',
             fields=[
-                ('id', models.AutoField(serialize=False, auto_created=True, verbose_name='ID', primary_key=True)),
-                ('titulo', models.CharField(max_length=150)),
-            ],
-            options={
-            },
-            bases=(models.Model,),
-        ),
-        migrations.CreateModel(
-            name='Pregunta',
-            fields=[
-                ('id', models.AutoField(serialize=False, auto_created=True, verbose_name='ID', primary_key=True)),
-                ('asunto', models.CharField(max_length=150)),
-                ('descripcion', models.TextField()),
-                ('fecha_pub', models.DateTimeField(auto_now_add=True)),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('content', models.TextField()),
+                ('answer_pub_date', models.DateTimeField()),
                 ('votes', models.IntegerField(default=0)),
-                ('respuestas', models.IntegerField(default=0)),
-                ('categoria', models.ForeignKey(to='askme.Categoria')),
-                ('usuario', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
+                ('slug', models.SlugField(blank=True, max_length='255')),
             ],
             options={
             },
             bases=(models.Model,),
         ),
         migrations.CreateModel(
-            name='Respuesta',
+            name='Ask',
             fields=[
-                ('id', models.AutoField(serialize=False, auto_created=True, verbose_name='ID', primary_key=True)),
-                ('contenido', models.TextField()),
-                ('respuesta_fecha_pub', models.DateTimeField(auto_now_add=True)),
-                ('votos_respuesta', models.IntegerField(default=0)),
-                ('pregunta', models.ForeignKey(to='askme.Pregunta')),
-                ('usuario', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('issue', models.CharField(max_length=150)),
+                ('description', models.TextField()),
+                ('pub_date', models.DateTimeField()),
+                ('popularity', models.IntegerField(default=0)),
+                ('slug', models.SlugField(blank=True, max_length='255')),
             ],
             options={
             },
             bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='Category',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('title', models.CharField(max_length=50)),
+                ('slug', models.SlugField(blank=True, max_length='255')),
+            ],
+            options={
+            },
+            bases=(models.Model,),
+        ),
+        migrations.AddField(
+            model_name='ask',
+            name='category',
+            field=models.ForeignKey(to='askme.Category', related_name='category'),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='ask',
+            name='user',
+            field=models.ForeignKey(to=settings.AUTH_USER_MODEL, related_name='asks'),
+            preserve_default=True,
+        ),
+        migrations.AlterUniqueTogether(
+            name='ask',
+            unique_together=set([('user', 'issue')]),
+        ),
+        migrations.AddField(
+            model_name='answer',
+            name='ask',
+            field=models.ForeignKey(to='askme.Ask', related_name='answers'),
+            preserve_default=True,
+        ),
+        migrations.AlterUniqueTogether(
+            name='answer',
+            unique_together=set([('ask', 'content')]),
         ),
     ]

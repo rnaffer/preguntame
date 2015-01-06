@@ -1,18 +1,19 @@
 from django.conf.urls import patterns, include, url
 
-from askme import views
+from .views import (AskListView, AskDetailList,
+ CategoryView, VoteUpView, VoteDownView, AskCreateView)
 
-urlpatterns = patterns('',
+urlpatterns = patterns(
+	'',
+	url(r'^$', AskListView.as_view(), name='asks'),
+	url(r'^crear/$', AskCreateView.as_view(), name='create'),
+	url(r'^c/(?P<slug>[-\w]+)/$', CategoryView.as_view(),
+	 name='category'),
+	url(r'^d/(?P<slug>[-\w]+)/$', AskDetailList.as_view(),
+	 name='detail'),
+	url(r'^plus/(?P<pk>\d+)/$', VoteUpView.as_view(),
+	 name='plus'),
+	url(r'^minus/(?P<pk>\d+)/$', VoteDownView.as_view(),
+	 name='minus'),
 
-	url(r'^$', views.PreguntaListView.as_view(), name='preguntas'),
-	url(r'^categoria/(\d+)$', 'askme.views.categoria', name='categoria'),
-	#url(r'^/page(?P<page>[0-9]+)/$', 'object_list', dict(info_dict)),
-	url(r'^(?P<pk>\d+)/$', views.PreguntaDetailView.as_view(), name='detalle'),
-	url(r'^plus/(\d+)$', 'askme.views.plus', name='plus'),
-	url(r'^minus/(\d+)$', 'askme.views.minus', name='minus'),
-	url(r'^preguntame/$', views.PreguntameFormView.as_view(), name='preguntame'),
-
-    # url(r'^blog/', include('blog.urls')),
-    
-    #url(r'^preguntas/$', PreguntaListView.as_view(), name='preguntas'),
 )

@@ -46,8 +46,9 @@
 	padding-top: 0px;
 }
 
-.categoria {
+.ruta {
 	height: 35px;
+	padding-left: 10px;
 }
 
 /*PREGUNTA*/
@@ -72,7 +73,12 @@
 
 .pregunta-fecha {
 	float: right;
-	margin-right: 10px;
+	margin: 0 10px 0 0;
+}
+
+.pregunta-fecha p,
+.pregunta-usuario p {
+	margin: 6px 0 0 0;
 }
 
 .pregunta-usuario {
@@ -97,6 +103,7 @@
 .pregunta-contenido h3 {
 	margin: 15px 0 15px 0;
 }
+
 /*END PREGUNTA*/
 /*LOGIN*/
 .registro-log {
@@ -113,7 +120,7 @@
 	width: 20px;
 	height: 25px;
 	float: right;
-	padding-bottom: 5px;
+	padding-top: 6px;
 	margin-right: 5px;
 	border-radius: 10px;
 }
@@ -125,12 +132,19 @@
 
 /*END CONTENT*/
 /*SIDE*/
-.side {
-
+#crear-pregunta {
+	padding: 10px;
 }
 
-.titulo-side h4 {
-	
+.crear {
+	text-align: center;
+	margin-bottom: 20px;
+	position: relative;
+	top: -12px;
+}
+
+.titulo-side h5 {
+	margin-top: 15px;
 }
 
 .contenido-side {
@@ -140,6 +154,10 @@
 /*DETAIL*/
 #id_contenido {
 	width: 600px;
+}
+
+.pregunta-titulo h2 {
+	margin: 15px 0;
 }
 
 .pregunta-detalle p,
@@ -162,6 +180,10 @@
 
 .respuestas {
 	margin: 20px 0;
+}
+
+.respuestas h3 {
+	margin-top: 10px;
 }
 
 .answer {
@@ -205,10 +227,32 @@
 .responder {
 	padding: 20px 10px;
 }
+
+.user_answer p {
+	margin-top: 15px;
+	border-top: 1px solid black;
+}
 /*END DETAIL*/
 /*FOOTER*/
 footer {
-	height: 100px;
-	padding-top: 40px;
+	padding-top: 20px;
 }
 /*END FOOTER*/
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 60px;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+}

@@ -1,0 +1,5 @@
+<div class="row ruta">
+	<h4><a href="{% url 'askme:asks' %}">Preguntas</a>
+	{% if category %} \ <a href="{% url 'askme:category' category %}">{{ category }}</a>{% endif %} 
+	{% if object %} \ <a href="{% url 'askme:detail' object.slug %}">{{ object.issue }}</a>{% endif %}</h4>
+</div>

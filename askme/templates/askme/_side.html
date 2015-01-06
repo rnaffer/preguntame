@@ -1,0 +1,34 @@
+<div class="titulo-side crear">
+	<h4><a id="crear-pregunta" href="{% url 'askme:create' %}">Crear una pregunta</a></h4>
+</div>
+
+{% if object %}
+	<div class="titulo-side">
+		<h5><a href="#">Relacionados</a></h5>
+	</div>
+	<div class="contenido-side">
+		{% for ask in related_list %}
+			{% if ask.issue != object.issue %}
+				<p><a href="{{ ask.get_absolute_url }}">{{ ask.issue }}</a></p>
+			{% endif %}
+		{% endfor %}
+	</div>
+{% endif %}
+
+<div class="titulo-side">
+	<h5><a href="#">Populares</a></h5>
+</div>
+<div class="contenido-side">
+	{% for ask in popular_list %}
+		<p><a href="{{ ask.get_absolute_url }}">{{ ask.issue }}</a></p>
+	{% endfor %}
+</div>
+
+<div class="titulo-side">
+	<h5><a href="#">Nuevos</a></h5>
+</div>
+<div class="contenido-side">
+	{% for ask in news_list %}
+		<p><a href="{{ ask.get_absolute_url }}">{{ ask.issue }}</a></p>
+	{% endfor %}
+</div>

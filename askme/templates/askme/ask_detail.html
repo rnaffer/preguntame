@@ -1,0 +1,56 @@
+{% extends "_layouts/base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}{{ object.issue }} | Preguntas |{% endblock title %}
+
+{% block route %}
+	{% include "askme/_route.html" %}
+{% endblock route %}
+
+{% block main %}
+
+	<div class="col-md-12 pregunta-titulo">
+		<h2>¿{{ object.issue }}?</h2>
+	</div>
+	<div class="col-md-12 pregunta-detalle">
+		<h4>{{ object.description }}</h4>
+		<p><a href="#">{{ object.user }}</a> - {{ object.user.details.rating }}p</p>
+		<img src="{% static 'img/profile.png' %}" alt="profile">
+		<p>{{ object.pub_date|date:"d/M/Y - P" }}</p>
+	</div>
+	
+	<div class="col-md-12 respuestas">
+		<h3>{{ object.answer_count }} Respuestas</h3>
+	</div>
+
+	{% for answer in object.answers.all|dictsortreversed:'votes' %}
+		<div class="col-md-12 answer">
+			<p>{{ answer.content|linebreaks }}</p><br />
+			<div class="answer-info">
+				<p><a href="#">{{ answer.user }}</a> - {{ answer.user.details.rating }}p</p>
+				<img src="{% static "img/profile.png" %}" alt="profile">
+				<p>{{ answer.answer_pub_date|date:"d/M/Y - P" }}</p>
+			</div>
+			<div class="votos">
+				<p>{{ answer.votes }} - Votos</p> 
+				<p><a href="{% url 'askme:plus' answer.id %}"><img src="{% static 'img/thumbs-up.bmp' %}" alt="up"></a> - <a href="{% url 'askme:minus' answer.id %}"><img src="{% static 'img/thumbs-down.bmp' %}" alt="down"></a></p>
+			</div>
+		</div>
+	{% endfor %}
+
+	<div class="user_answer">
+		{% if user.is_authenticated %}
+			<h4>Envia una respuesta</h3>
+		<div id="form-responder" class="responder col-md-12">
+			{% crispy form %}
+		</div>
+		{% else %}
+			<p>Debes acceder para responder <a href="{% url 'accounts:login' %}">Accede</a> / <a href="{% url 'accounts:signup' %}">Regístrate</a></p>
+		{% endif %}
+	</div>	
+{% endblock main %}
+
+{% block side %}
+	{% include "askme/_side.html" %}
+{% endblock side %}

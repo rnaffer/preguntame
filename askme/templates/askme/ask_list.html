@@ -1,0 +1,17 @@
+{% extends "_layouts/base.html" %}
+
+{% block title %}Preguntas | {{ block.super }} {% endblock title %}
+
+{% block route %}
+	{% include "askme/_route.html" %}
+{% endblock route %}
+
+{% block main %}
+	{% for object in object_list %}
+		{% include "askme/_asks.html" %}	
+	{% endfor %}
+{% endblock main %}
+
+{% block side %}
+	{% include "askme/_side.html" %}
+{% endblock side %}
