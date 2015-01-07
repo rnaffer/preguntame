@@ -29,6 +29,13 @@ class AskListView(
 	def get_queryset(self):
 		queryset = super(AskListView, self).get_queryset()
 		# the annotate avoid make a query in each view
+		if 'order' in self.request.GET:
+			order = self.request.GET.get('order')
+			if order == 'news':
+				queryset = Ask.objects.all().order_by('-pub_date')
+			elif order == 'popularity':
+				queryset = Ask.objects.all().order_by('-popularity')
+		
 		queryset = queryset.annotate(answer_count=Count('answers'))
 		return queryset
 

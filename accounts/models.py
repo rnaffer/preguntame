@@ -3,7 +3,7 @@ from django.db import models
 from django.contrib.auth.models import User
 
 class UserDetail(models.Model):
-	user = models.OneToOneField(User, related_name='details')
+	user = models.OneToOneField(User, related_name='details', unique=True)
 	rating = models.IntegerField(default=1)
 
 	class Meta:

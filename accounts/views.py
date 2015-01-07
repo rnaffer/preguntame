@@ -58,4 +58,27 @@ class LogOutView(
 		logout(request)
 		self.messages.success('Has salido correctamente')
 		return super(LogOutView, self).get(request, *args, **kwargs)
-		
+
+class ProfileView(
+	views.LoginRequiredMixin,
+	views.PrefetchRelatedMixin,
+	generic.DetailView
+	):
+	model = User
+	template_name = 'accounts/profile_detail.html'
+	prefetch_related = ('answers', 'asks')
+
+	def get_user(self, pk, username):
+		try:
+			user = self.model.objects.get(
+				pk=pk,
+				username=username
+			)
+		except User.DoesNotExist:
+			raise Http404
+		else:
+			return user
+
+	def get(self, request, *args, **kwargs):
+		self.object = self.get_user(kwargs['pk'], kwargs['username'])
+		return super(ProfileView, self).get(request, *args, **kwargs)

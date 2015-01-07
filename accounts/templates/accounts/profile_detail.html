@@ -1,0 +1,74 @@
+{% extends "_layouts/base.html" %}
+{% load static %}
+
+{% block main %}
+	<div class="row">
+		<div class="col-sm-3">
+			<img src="{% static 'img/profile.png' %}" alt="profile" class="img-thumbnail">
+		</div>
+		<div class="col-sm-4">
+			<div class="panel panel-success">
+				<div class="panel-heading">
+					<p class="user_name">
+						{{ object.first_name }} {{ object.last_name }}
+					</p>
+				</div>
+				<div class="panel-body panel-height">
+					<p>Reputacion: {{ object.details.rating }}p</p>
+					<p>Correo: {{ object.email }}</p>
+					<p>Respuestas:</p>
+					<p>Preguntas:</p>
+					<p>Pais:</p>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-5">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					Acerca de mi
+				</div>
+				<div class="panel-body panel-height">
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="panel panel-success">
+				<div class="panel-heading title">
+					Actividad reciente
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-6">
+			<div class="panel panel-default">
+				<div class="panel-heading">Respuestas</div>
+				<ul class="list-group">
+					{% for answer in object.answers.all|slice:':5' %}
+						<li class="list-group-item"><strong>En</strong> <a href="#" class="list-group-item-heading">{{ answer.ask.issue }}</a><p class="list-group-item-text"><strong>Respondio: </strong>{{ answer.content|truncatechars:80 }}</p></li>
+					{% empty %}
+						<li class="list-group-item">
+							Nunca ha respondido
+						</li>
+					{% endfor %}
+				</ul>
+			</div>
+		</div>
+		<div class="col-sm-6">
+			<div class="panel panel-default">
+				<div class="panel-heading">Preguntas</div>
+				<ul class="list-group">
+					{% for ask in object.asks.all|slice:':10' %}
+						<li class="list-group-item"><a href="#">{{ ask.issue }}</a></li>
+					{% empty %}
+						<li class="list-group-item">
+							Nunca ha preguntado
+						</li>
+					{% endfor %}
+				</ul>
+			</div>
+		</div>
+	</div>
+{% endblock main %}

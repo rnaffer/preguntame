@@ -99,3 +99,7 @@ TEMPLATE_DIRS = (
 )
 
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
+
+MEDIA_ROOT = '/var/www/assets/preguntame/'
+
+MEDIA_URL = '/media/'

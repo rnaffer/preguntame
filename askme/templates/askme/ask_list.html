@@ -1,6 +1,6 @@
 {% extends "_layouts/base.html" %}
 
-{% block title %}Preguntas | {{ block.super }} {% endblock title %}
+{% block title %}{% if category %} {{ category.title }} | {% else %} Preguntas | {% endif %} {{ block.super }} {% endblock title %}
 
 {% block route %}
 	{% include "askme/_route.html" %}

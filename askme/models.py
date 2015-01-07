@@ -27,15 +27,15 @@ class AskQuerySet(models.query.QuerySet):
 
 class AskManager(models.Manager):
 	def news(self):
-		return self.get_query_set().news()
+		return self.get_queryset().news()
 
 	def popular(self):
-		return self.get_query_set().popular()
+		return self.get_queryset().popular()
 
 	def related(self, category):
-		return self.get_query_set().related(category)
+		return self.get_queryset().related(category)
 
-	def get_query_set(self):
+	def get_queryset(self):
 		return AskQuerySet(self.model, using=self._db)
 
 class Ask(models.Model):

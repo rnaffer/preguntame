@@ -12,6 +12,13 @@
 	margin-right: 7px;
 }
 
+#user-img {
+	height: 17px;
+	width: 15px;
+	position: relative;
+	top: -2px;
+}
+
 .menu {
 	padding-top: 10px;
 }
@@ -49,6 +56,10 @@
 .ruta {
 	height: 35px;
 	padding-left: 10px;
+}
+
+body .breadcrumb {
+	margin-bottom: 0px;
 }
 
 /*PREGUNTA*/
@@ -233,9 +244,23 @@
 	border-top: 1px solid black;
 }
 /*END DETAIL*/
+/*PROFILE*/
+.user_name {
+	margin: 0;
+}
+
+.panel-height {
+	max-height: 175px;
+	min-height: 175px;
+}
+/*END PROFILE*/
 /*FOOTER*/
 footer {
 	padding-top: 20px;
+}
+
+.title {
+	text-align: center;
 }
 /*END FOOTER*/
 

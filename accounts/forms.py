@@ -9,16 +9,20 @@ from crispy_forms.layout import Layout, ButtonHolder, Submit, Field
 
 class RegistrationForm(UserCreationForm):
 	email = forms.EmailField(required=True)
+	first_name = forms.CharField(label='Nombre')
+	last_name = forms.CharField(label='Apellidos')
 
 	class Meta:
 		model = User
-		fields = ('username', 'email', 'password1', 'password2')
+		fields = ('first_name', 'last_name', 'username', 'email', 'password1', 'password2')
 
 	def __init__(self, *args, **kwargs):
 		super(RegistrationForm, self).__init__(*args, **kwargs)
 
 		self.helper = FormHelper()
 		self.helper.layout = Layout(
+			'first_name',
+			'last_name',
 			'username',
 			'email',
 			'password1',
@@ -31,6 +35,8 @@ class RegistrationForm(UserCreationForm):
 		def save(self, commit=True):
 			user = super(UserCreationForm, self).save(commit=False)
 			user.email = self.cleaned_data['email']
+			user.first_name = self.cleaned_data['first_name']
+			user.last_name = self.cleaned_data['last_name']
 			if commit:
 				user.save()
 			return user

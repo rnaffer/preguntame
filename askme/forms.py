@@ -51,5 +51,6 @@ class AskForm(forms.ModelForm):
 		try:
 		 	Ask.objects.get(issue=issue)
 		except Ask.DoesNotExist:
-			return issue	
-		raise ValidationError('Esta pregunta ya existe')
+			return issue
+		else:
+			raise ValidationError('Esta pregunta ya existe')

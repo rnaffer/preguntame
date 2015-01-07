@@ -1,5 +1,9 @@
-<div class="row ruta">
-	<h4><a href="{% url 'askme:asks' %}">Preguntas</a>
-	{% if category %} \ <a href="{% url 'askme:category' category %}">{{ category }}</a>{% endif %} 
-	{% if object %} \ <a href="{% url 'askme:detail' object.slug %}">{{ object.issue }}</a>{% endif %}</h4>
+<div class="row">
+	<ol class="breadcrumb">
+		<li><a href="{% url 'askme:asks' %}">Preguntas</a></li>
+		{% if category %}
+		<li><a href="{% url 'askme:category' category %}">{{ category }}</a></li>{% endif %} 
+		{% if object %}
+		<li><a href="{% url 'askme:detail' object.slug %}">{{ object.issue }}</a></li>{% endif %}
+	</ol>
 </div>
