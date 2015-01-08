@@ -3,6 +3,7 @@ from django.contrib.auth.forms import(
 
 from django import forms
 from django.contrib.auth.models import User
+from .models import UserDetail
 
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, ButtonHolder, Submit, Field
@@ -51,5 +52,24 @@ class LoginForm(AuthenticationForm):
 			'password',
 			ButtonHolder(
 				Submit('acceder', 'Acceder', css_class="btn-primary")			
+			)
+		)
+
+class UserDetailForm(forms.ModelForm):
+	class Meta:
+		fields = ('profile_image', 'email', 'first_name', 'last_name', 'about_me')
+		model = UserDetail
+
+	def __init__(self, *args, **kwargs):
+		super(UserDetailForm, self).__init__(*args, **kwargs)
+		self.helper = FormHelper()
+		self.helper.layout = Layout(
+			'profile_image',
+			'email',
+			'first_name',
+			'last_name',
+			'about_me',
+			ButtonHolder(
+				Submit('guardar', 'Guardar', css_class='btn-primary')
 			)
 		)

@@ -21,10 +21,10 @@
 					<p><a href="{% url 'askme:category' object.category.slug %}">{{ object.category }}</a></p>
 				</div>
 				<div class="pregunta-usuario">
-					<p><a href="{% url 'accounts:profile' object.user.id object.user.username %}">{{ object.user }}</a> - {{ object.user.details.rating }}p</p>
+					<p><a href="{% url 'accounts:profile' object.user.details.id object.user.username %}">{{ object.user }}</a> - {{ object.user.details.rating }}p</p>
 				</div>
 				<div class="pregunta-img">
-					<img src="{% static 'img/profile.png' %}" alt="profile">
+					<a href="{% url 'accounts:profile' object.user.id object.user.username %}"><img src="{% static 'img/profile.png' %}" alt="profile"></a>
 				</div>
 				<div class="pregunta-fecha">
 					<p>{{ object.pub_date|date:"d/M/Y - P" }}</p>

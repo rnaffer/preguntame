@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 from braces import views
 
 from .models import UserDetail
-from .forms import LoginForm, RegistrationForm
+from .forms import LoginForm, RegistrationForm, UserDetailForm
 
 class SignUpView(
 	views.AnonymousRequiredMixin,
@@ -23,7 +23,12 @@ class SignUpView(
 
 	def form_valid(self, form):
 		resp = super(SignUpView, self).form_valid(form)
-		UserDetail.objects.create(user=self.object)
+		UserDetail.objects.create(
+			user=self.object,
+			first_name=self.object.first_name,
+			last_name=self.object.last_name,
+			email=self.object.email
+			)
 		return resp
 
 class LogInView(
@@ -59,26 +64,41 @@ class LogOutView(
 		self.messages.success('Has salido correctamente')
 		return super(LogOutView, self).get(request, *args, **kwargs)
 
-class ProfileView(
-	views.LoginRequiredMixin,
-	views.PrefetchRelatedMixin,
-	generic.DetailView
-	):
-	model = User
+class ProfileView(generic.DetailView):
+	model = UserDetail
 	template_name = 'accounts/profile_detail.html'
-	prefetch_related = ('answers', 'asks')
 
-	def get_user(self, pk, username):
+	def get_detail(self, pk):
 		try:
 			user = self.model.objects.get(
-				pk=pk,
-				username=username
+				pk=pk
 			)
-		except User.DoesNotExist:
+		except UserDetail.DoesNotExist:
 			raise Http404
 		else:
 			return user
 
 	def get(self, request, *args, **kwargs):
-		self.object = self.get_user(kwargs['pk'], kwargs['username'])
+		self.object = self.get_detail(kwargs['pk'])
 		return super(ProfileView, self).get(request, *args, **kwargs)
+
+	def get_context_data(self, **kwargs):
+		context = super(ProfileView, self).get_context_data(**kwargs)
+		# add news and popular asks for sidebar
+		context['profile_user'] = User.objects.get(username=self.kwargs['username'])
+		return context
+
+class ProfileUpdateView(
+	views.LoginRequiredMixin,
+	generic.UpdateView
+	):
+	form_class = UserDetailForm
+	model = UserDetail
+	template_name = 'accounts/user_update.html'
+
+	def get(self, request, *args, **kwargs):
+		self.object = UserDetail.objects.get(user=self.request.user)
+		form_class = self.get_form_class()
+		form = self.get_form(form_class)
+		context = self.get_context_data(object=self.object, form=form)
+		return self.render_to_response(self.get_context_data(form=form))

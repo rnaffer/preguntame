@@ -1,7 +1,8 @@
 from django.conf.urls import patterns, include, url
 from django.conf import settings
 
-from .views import SignUpView, LogInView, LogOutView, ProfileView
+from .views import (SignUpView, LogInView,
+	 	LogOutView, ProfileView, ProfileUpdateView)
 
 urlpatterns = patterns(
 	'',
@@ -10,6 +11,8 @@ urlpatterns = patterns(
     url(r'^logout/$', LogOutView.as_view(), name='logout'),
     url(r'^profile/(?P<pk>\d+)/(?P<username>\w+)/$', ProfileView.as_view(),
 	 name='profile'),
+    url(r'^update/(?P<pk>\d+)$', ProfileUpdateView.as_view(),
+	 name='update'),
 )
 
 if settings.DEBUG:
