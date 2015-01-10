@@ -44,7 +44,7 @@ class Ask(models.Model):
 	description = models.TextField()
 	pub_date = models.DateTimeField(auto_now_add=True)
 	popularity = models.IntegerField(default=0)
-	category = models.ForeignKey(Category, related_name='category')
+	category = models.ForeignKey(Category, related_name='asks')
 	slug = models.SlugField(max_length='255', blank=True)
 
 	objects = AskManager()
@@ -79,3 +79,7 @@ class Answer(models.Model):
 	def save(self, *args, **kwargs):
 		self.slug = slugify(self.ask)
 		return super(Answer, self).save(*args, **kwargs)
+
+class AnswerVoteUsers(models.Model):
+	answer = models.ForeignKey(Answer, related_name='users')
+	username = models.CharField(max_length=150)

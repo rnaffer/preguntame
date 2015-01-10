@@ -4,6 +4,7 @@ from django.contrib.auth import login, logout, authenticate
 from django.views import generic
 from django.core.urlresolvers import reverse_lazy
 from django.contrib.auth.models import User
+from django.db.models import Count
 
 from braces import views
 
@@ -38,7 +39,7 @@ class LogInView(
 	):
 	form_class = LoginForm
 	form_valid_message = 'Has accedido correctamente'
-	success_url = reverse_lazy('home')
+	success_url = reverse_lazy('askme:asks')
 	template_name = 'accounts/login.html'
 
 	def form_valid(self, form):
@@ -57,7 +58,7 @@ class LogOutView(
 	views.MessageMixin,
 	generic.RedirectView
 	):
-	url = reverse_lazy('home')
+	url = reverse_lazy('askme:asks')
 
 	def get(self, request, *args, **kwargs):
 		logout(request)
@@ -102,3 +103,16 @@ class ProfileUpdateView(
 		form = self.get_form(form_class)
 		context = self.get_context_data(object=self.object, form=form)
 		return self.render_to_response(self.get_context_data(form=form))
+
+class UsersView(
+	generic.ListView
+	):
+	model = User
+	template_name = 'accounts/users.html'
+
+	def get_queryset(self):
+		queryset = super(UsersView, self).get_queryset()
+		queryset = queryset.filter(is_staff=False)[:20]
+		queryset = queryset.annotate(answer_count=Count('answers'))
+		queryset = queryset.annotate(ask_count=Count('asks'))
+		return queryset

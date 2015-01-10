@@ -1,21 +1,21 @@
 {% load static %}
 
 <div class="row">
-	<div class="col-md-10 col-sm-10 col-md-offset-1 pregunta">
+	<div class="col-lg-10 col-md-12 col-xs-12 col-lg-offset-1 pregunta">
 		<div class="row shadow">
-			<div class="col-md-2 spotlight">
-				<div class="row">
-					<div id="respuestas" class="col-md-6" >
+			<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 spotlight">
+				<div class="row info">
+					<div id="respuestas" class="col-md-6 col-sm-6 col-xs-6" >
 						<h4>{{ object.answer_count }}</h4>
 						<p>Respuestas</p>
 					</div>
-					<div id="popularidad" class="col-md-6" >
+					<div id="popularidad" class="col-md-6 col-xs-6" >
 						<h4>{{ object.popularity }}</h4>
 						<p>Popularidad</p>
 					</div>
 				</div>
 			</div>
-			<div class="col-md-10 pregunta-contenido">
+			<div class="col-lg-10 col-sm-10 col-xs-10 pregunta-contenido">
 				<h3><a href="{{ object.get_absolute_url }}">{{ object.issue }}</a></h3>
 				<div class="pregunta-categoria">
 					<p><a href="{% url 'askme:category' object.category.slug %}">{{ object.category }}</a></p>
@@ -24,7 +24,7 @@
 					<p><a href="{% url 'accounts:profile' object.user.details.id object.user.username %}">{{ object.user }}</a> - {{ object.user.details.rating }}p</p>
 				</div>
 				<div class="pregunta-img">
-					<a href="{% url 'accounts:profile' object.user.id object.user.username %}"><img src="{% static 'img/profile.png' %}" alt="profile"></a>
+					<a href="{% url 'accounts:profile' object.user.id object.user.username %}"><img src="{{ object.user.details.profile_image.url }}" alt="profile"></a>
 				</div>
 				<div class="pregunta-fecha">
 					<p>{{ object.pub_date|date:"d/M/Y - P" }}</p>

@@ -9,14 +9,14 @@
 {% endblock route %}
 
 {% block main %}
-
+	
 	<div class="col-md-12 pregunta-titulo">
 		<h2>¿{{ object.issue }}?</h2>
 	</div>
 	<div class="col-md-12 pregunta-detalle">
-		<h4>{{ object.description }}</h4>
+		<h4>{{ object.description|safe }}</h4>
 		<p><a href="{% url 'accounts:profile' object.user.id object.user.username %}">{{ object.user }}</a> - {{ object.user.details.rating }}p</p>
-		<img src="{% static 'img/profile.png' %}" alt="profile">
+		<img src="{{ object.user.details.profile_image.url }}" alt="profile">
 		<p>{{ object.pub_date|date:"d/M/Y - P" }}</p>
 	</div>
 	
@@ -26,18 +26,23 @@
 
 	{% for answer in object.answers.all|dictsortreversed:'votes' %}
 		<div class="col-md-12 answer">
-			<p>{{ answer.content|linebreaks }}</p><br />
+			<p>{{ answer.content|safe }}</p><br />
 			<div class="answer-info">
 				<p><a href="{% url 'accounts:profile' answer.user.id answer.user.username %}">{{ answer.user }}</a> - {{ answer.user.details.rating }}p</p>
-				<img src="{% static "img/profile.png" %}" alt="profile">
+				<img src="{{ answer.user.details.profile_image.url }}" alt="profile">
 				<p>{{ answer.answer_pub_date|date:"d/M/Y - P" }}</p>
 			</div>
 			<div class="votos">
 				<p>{{ answer.votes }} - Votos</p> 
-				<p><a href="{% url 'askme:plus' answer.id %}"><img src="{% static 'img/thumbs-up.bmp' %}" alt="up"></a> - <a href="{% url 'askme:minus' answer.id %}"><img src="{% static 'img/thumbs-down.bmp' %}" alt="down"></a></p>
+				<p><a href="{% url 'askme:plus' answer.id %}"><img src="{% static 'img/thumbs-up.png' %}" alt="up"></a> - <a href="{% url 'askme:minus' answer.id %}"><img src="{% static 'img/thumbs-down.png' %}" alt="down"></a></p>
 			</div>
 		</div>
 	{% endfor %}
+
+	<script type="text/javascript" src="{% static 'js/nicEdit.js' %}"></script>
+	<script type="text/javascript">
+		bkLib.onDomLoaded(function() { nicEditors.allTextAreas() });
+	</script>
 
 	<div class="user_answer">
 		{% if user.is_authenticated %}

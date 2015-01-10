@@ -7,28 +7,28 @@
 		<h5><a href="#">Relacionadas</a></h5>
 	</div>
 	<div class="contenido-side">
-		{% for ask in related_list %}
+		{% for ask in category.asks.all|slice:':10' %}
 			{% if ask.issue != object.issue %}
 				<p><a href="{{ ask.get_absolute_url }}">{{ ask.issue }}</a></p>
 			{% endif %}
 		{% endfor %}
 	</div>
+{% else %}
+	<div class="titulo-side">
+		<h5><a href="?order=popularity">Populares</a></h5>
+	</div>
+	<div class="contenido-side">
+		{% for ask in object_list|dictsortreversed:"popularity"|slice:':5' %}
+			<p><a href="{{ ask.get_absolute_url }}">{{ ask.issue }}</a></p>
+		{% endfor %}
+	</div>
+
+	<div class="titulo-side">
+		<h5><a href="?order=news">Nuevas</a></h5>
+	</div>
+	<div class="contenido-side">
+		{% for ask in object_list|dictsortreversed:'pub_date'|slice:':5' %}
+			<p><a href="{{ ask.get_absolute_url }}">{{ ask.issue }}</a></p>
+		{% endfor %}
+	</div>
 {% endif %}
-
-<div class="titulo-side">
-	<h5><a href="#">Populares</a></h5>
-</div>
-<div class="contenido-side">
-	{% for ask in popular_list %}
-		<p><a href="{{ ask.get_absolute_url }}">{{ ask.issue }}</a></p>
-	{% endfor %}
-</div>
-
-<div class="titulo-side">
-	<h5><a href="#">Nuevas</a></h5>
-</div>
-<div class="contenido-side">
-	{% for ask in news_list %}
-		<p><a href="{{ ask.get_absolute_url }}">{{ ask.issue }}</a></p>
-	{% endfor %}
-</div>

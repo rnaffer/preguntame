@@ -12,7 +12,7 @@ class AnswerForm(forms.ModelForm):
 	class Meta:
 		fields = ('content',)
 		model = Answer
-
+		
 	def __init__(self, *args, **kwargs):
 		super(AnswerForm, self).__init__(*args, **kwargs)
 		self.fields['content'].label = 'Respuesta'
@@ -20,7 +20,7 @@ class AnswerForm(forms.ModelForm):
 		self.helper.layout = Layout(
 			'content',
 			ButtonHolder(
-				Submit('responder', 'Responder', css_class="btn-primary")
+				Submit('responder', 'Responder', css_class="btn-primary verde")
 			)
 		)
 
@@ -42,7 +42,7 @@ class AskForm(forms.ModelForm):
 			'description',
 			'category',
 			ButtonHolder(
-				Submit('preguntar', 'Preguntar', css_class="btn-primary")
+				Submit('preguntar', 'Preguntar', css_class="btn-primary verde")
 			)
 		)
 

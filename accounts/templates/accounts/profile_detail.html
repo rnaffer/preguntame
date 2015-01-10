@@ -4,7 +4,10 @@
 {% block main %}
 	<div class="row">
 		<div class="col-sm-3">
-			<img src="{{ object.profile_image.url }}" alt="profile" class="img-thumbnail">
+			<img src="{{ object.profile_image.url }}" alt="Imagen de perfil" class="img-thumbnail image">
+			{% if user == profile_user %}
+			<p class="center"><a href="{% url 'accounts:update' object.id %}">Actualizar perfil</a></p>
+		{% endif %}
 		</div>
 		<div class="col-sm-4">
 			<div class="panel panel-success">
@@ -14,11 +17,10 @@
 					</p>
 				</div>
 				<div class="panel-body panel-height">
-					<p>Reputacion: {{ object.rating }}p</p>
-					<p>Correo: {{ object.email }}</p>
-					<p>Respuestas:</p>
-					<p>Preguntas:</p>
-					<p>Pais:</p>
+					<p><strong>Reputacion:</strong> {{ object.rating }}p</p>
+					<p><strong>Correo:</strong> {{ object.email }}</p>
+					<p><strong>Respuestas:</strong> {{ profile_user.answers.count }}</p>
+					<p><strong>Preguntas:</strong> {{ profile_user.asks.count }}</p>
 				</div>
 			</div>
 		</div>
@@ -28,7 +30,7 @@
 					Acerca de mi
 				</div>
 				<div class="panel-body panel-height">
-					<p>{{ object.about_me }}</p>
+					<p>{{ object.about_me|safe }}</p>
 				</div>
 			</div>
 		</div>
@@ -48,7 +50,7 @@
 				<div class="panel-heading">Respuestas</div>
 				<ul class="list-group">
 					{% for answer in profile_user.answers.all|slice:':5' %}
-						<li class="list-group-item"><strong>En</strong> <a href="#" class="list-group-item-heading">{{ answer.ask.issue }}</a><p class="list-group-item-text"><strong>Respondio: </strong>{{ answer.content|truncatechars:80 }}</p></li>
+						<li class="list-group-item"><strong>En</strong> <a href="#" class="list-group-item-heading">{{ answer.ask.issue|safe }}</a><p class="list-group-item-text"><strong>Respondio: </strong>{{ answer.content|truncatechars:100|safe }}</p></li>
 					{% empty %}
 						<li class="list-group-item">
 							Nunca ha respondido
@@ -74,7 +76,7 @@
 	</div>
 {% endblock main %}
 {% block side %}
-{% if user == profile_user %}
-	<h4><a href="{% url 'accounts:update' object.id %}">Actalizar perfil</a></h4>
-{% endif %}
+<div class="titulo-side crear">
+	<h4><br/><a id="crear-pregunta" href="{% url 'askme:create' %}">Crear una pregunta</a></h4>
+</div>
 {% endblock side %}

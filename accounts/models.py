@@ -12,10 +12,10 @@ def get_image_path(instance, filename):
 class UserDetail(models.Model):
 	user = models.OneToOneField(User, related_name='details', unique=True)
 	rating = models.IntegerField(default=1)
-	profile_image = models.ImageField(upload_to=get_image_path, blank=True, null=True)
-	email = models.EmailField(default="user@email.com")
-	first_name = models.CharField(default='user_name', max_length=50)
-	last_name = models.CharField(default='user_name', max_length=50)
+	profile_image = models.ImageField(upload_to=get_image_path, default='/static/img/profile.png')
+	email = models.EmailField()
+	first_name = models.CharField(max_length=50)
+	last_name = models.CharField(max_length=50)
 	about_me = models.TextField(blank=True, null=True)
 
 	class Meta:

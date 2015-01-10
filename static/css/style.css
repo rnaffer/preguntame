@@ -43,17 +43,31 @@
 	color: #44B78B;
 }
 
-.dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {
-	background-color: #44B78B;
-	color: #fff;
-}
-
 #slogan {
 	color: #44B78B;
 	font-family: 'Tahoma', Geneva, sans-serif;
 	font-weight: bold;
 	font-size: 0.8em;
 }
+
+#user-option {
+	font-size: 0.8em;
+	font-family: Verdana,Geneva,sans-serif;
+	font-weight: bold;
+	letter-spacing: 0;
+}
+
+#user-option:hover {
+	border-radius: 2px;
+}
+
+.anonymous a {
+	color: #fff;
+	font-family: Verdana,Geneva,sans-serif;
+	font-size: 0.8em;
+	font-weight: bold;
+}
+
 /*END HEADER*/
 /*CONTENT*/
 .contenedor-principal {
@@ -104,14 +118,6 @@
 	color: #1e7145;
 }
 
-#respuestas {
-
-}
-
-#popularidad {
-
-}
-
 .pregunta-contenido {
 	color: #fff;
 }
@@ -148,11 +154,32 @@
 	font-size: 0.95em;
 }
 
+.pregunta-usuario a {
+	color: #ECEF92;
+}
+
+.pregunta-usuario a:hover,
+.pregunta-usuario a:focus {
+	color: #CCCB85;
+}
+
 .pregunta-contenido a,
 .pregunta-contenido-larga a{
 	font-size: 0.9em;
 	font-family: Verdana, Geneva, sans-serif;
 }
+
+.pagination .active a,
+.pagination .active a:hover {
+	background-color: #44B78B;
+	border-color: #44B78B;
+}
+
+.pagination > li > a,
+.pagination > li > a:hover {
+	color: #44B78B;
+}
+
 /*END PREGUNTA*/
 /*LOGIN*/
 .registro-log {
@@ -196,8 +223,15 @@ input[type='email'] {
 
 .verde {
 	background-color: #2EA968;
-	color: #fff;
-	font-family: Verdana, Geneva, sans-serif;
+	border-color: #2EA968;
+}
+
+.verde:hover {
+	background-color: #1E7145;
+}
+
+.header {
+	border-bottom: 1px solid #1E7145;
 }
 
 /*END CONTENT*/
@@ -256,6 +290,16 @@ input[type='email'] {
 .user_name {
 	font-size: 0.9em;
 	font-weight: bold;
+}
+
+.center {
+	margin-top: 3px;
+	text-align: center;
+	font-size: 16px;
+}
+
+th, td {
+	text-align: center;
 }
 /*END PROFILE*/
 /*FOOTER*/

@@ -3,11 +3,6 @@
 	margin: 5px 0 0 15px;
 }
 
-.log {
-	float: right;
-	padding-top: 5px;
-}
-
 .log a {
 	margin-right: 7px;
 }
@@ -37,6 +32,22 @@
 	float: left;
 	margin-top: 17px;
 }
+
+#user-option {
+	padding: 5px;
+	margin: 3px 5px 0 0;
+}
+
+.anonymous {
+	float: right;
+	margin-top: 5px;
+}
+
+.anonymous a {
+	margin-right: 5px;
+}
+
+
 /*END HEADER*/
 /*CONTENT*/
 .main {
@@ -97,7 +108,8 @@ body .breadcrumb {
 	margin-right: 20px;
 }
 
-.spotlight {
+.info {
+	min-width: 121px;
 }
 
 #respuestas, #popularidad {
@@ -115,6 +127,9 @@ body .breadcrumb {
 	margin: 15px 0 15px 0;
 }
 
+.pagination-div {
+	text-align: center;
+}
 /*END PREGUNTA*/
 /*LOGIN*/
 .registro-log {
@@ -138,6 +153,10 @@ body .breadcrumb {
 
 .form-group {
     margin-bottom: 25px;
+}
+
+.header {
+	margin-bottom: 10px;
 }
 /*END LOGIN*/
 
@@ -185,7 +204,7 @@ body .breadcrumb {
 
 .pregunta-detalle img,
 .answer-info img {
-	width: 15px;
+	width: 20px;
 	height: 20px;
 }
 
@@ -252,6 +271,12 @@ body .breadcrumb {
 .panel-height {
 	max-height: 175px;
 	min-height: 175px;
+}
+
+.image {
+	max-height: 190px;
+	min-height: 190px;
+	width: 190px;
 }
 /*END PROFILE*/
 /*FOOTER*/

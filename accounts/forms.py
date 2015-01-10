@@ -29,7 +29,7 @@ class RegistrationForm(UserCreationForm):
 			'password1',
 			'password2',
 			ButtonHolder(
-				Submit('registrar', 'Registrar', css_class="btn-primary")
+				Submit('registrar', 'Registrar', css_class="btn-primary verde")
 			)
 		)
 
@@ -51,7 +51,7 @@ class LoginForm(AuthenticationForm):
 			'username',
 			'password',
 			ButtonHolder(
-				Submit('acceder', 'Acceder', css_class="btn-primary")			
+				Submit('acceder', 'Acceder', css_class="btn-primary verde")			
 			)
 		)
 
@@ -59,6 +59,12 @@ class UserDetailForm(forms.ModelForm):
 	class Meta:
 		fields = ('profile_image', 'email', 'first_name', 'last_name', 'about_me')
 		model = UserDetail
+		labels = {
+			'profile_image': 'Imagen de perfil', 
+			'email': 'Correo electronico',
+			'first_name': 'Nombre',
+			'last_name': 'Apellidos',
+			'about_me': 'Acerca de ti'}
 
 	def __init__(self, *args, **kwargs):
 		super(UserDetailForm, self).__init__(*args, **kwargs)
@@ -70,6 +76,6 @@ class UserDetailForm(forms.ModelForm):
 			'last_name',
 			'about_me',
 			ButtonHolder(
-				Submit('guardar', 'Guardar', css_class='btn-primary')
+				Submit('guardar', 'Guardar', css_class='btn-primary verde')
 			)
 		)

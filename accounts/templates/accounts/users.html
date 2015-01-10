@@ -1,0 +1,32 @@
+{% extends "_layouts/base.html" %}
+{% block title %}
+	Usuarios | {{ block.super }}
+{% endblock title %}
+
+{% block main %}
+<div class="row">
+	<div class="col-sm-6 col-sm-offset-2">
+		<div class="header">
+			<h3>Top Usuarios</h3>
+		</div>
+		<table class="table table-bordered">
+			<tr>
+				<th>#</th>
+				<th>Usuario</th>
+				<th>Reputación</th>
+				<th>Preguntas</th>
+				<th>Respuestas</th>
+			</tr>
+			{% for object in object_list %}
+				<tr>
+					<td>{{ forloop.counter }}</td>
+					<td><a id="user-option" href="{% url 'accounts:profile' object.details.id object.username %}"><img id="user-img" src="{{ object.details.profile_image.url }}" alt="profile"> {{ object.username }}</a></td>
+					<td>{{ object.details.rating }}p</td>
+					<td>{{ object.ask_count }}</td>
+					<td>{{ object.answer_count }}</td>
+				</tr>
+			{% endfor %}
+		</table>
+	</div>
+</div>
+{% endblock main %}

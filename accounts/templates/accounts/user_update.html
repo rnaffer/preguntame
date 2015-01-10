@@ -1,12 +1,22 @@
 {% extends "_layouts/base.html" %}
 {% load crispy_forms_tags %}
+{% load static %}
 {% block title %}
 	Actualizar | {{ block.super }}
 {% endblock title %}
 
 {% block main %}
+
+<script type="text/javascript" src="{% static 'js/nicEdit.js' %}"></script>
+<script type="text/javascript">
+	bkLib.onDomLoaded(function() { nicEditors.allTextAreas() });
+</script>
+
 <div class="row">
 	<div class="col-sm-6">
+		<div class="header">
+			<h3>Actualizar infomación</h3>
+		</div>
 		{% crispy form %}
 	</div>
 </div>
